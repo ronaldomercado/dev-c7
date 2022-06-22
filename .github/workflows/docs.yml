@@ -40,12 +40,10 @@ jobs:
           fetch-depth: 0
 
       - name: Install dependencies
-        run: |
-          touch requirements_dev.txt
-          pip install -r requirements_dev.txt -e .[dev]
+        run: pip install -r requirements.txt
 
       - name: Build docs
-        run: tox -e docs
+        run: sphinx-build -EWT --keep-going docs build/html
 
       - name: Move to versioned directory
         # e.g. master or 0.1.2

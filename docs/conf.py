@@ -4,15 +4,15 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import dev_c7
-
 # -- General configuration ------------------------------------------------
 
 # General information about the project.
+from subprocess import check_output
+
 project = "dev-c7"
 
 # The full version, including alpha/beta/rc tags.
-release = dev_c7.__version__
+release = str(check_output(["git", "describe", "--tags"]))
 
 # The short X.Y version.
 if "+" in release:

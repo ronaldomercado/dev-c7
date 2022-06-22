@@ -31,9 +31,7 @@ jobs:
           python-version: ${{ matrix.python }}
 
       - name: Install dependencies
-        run: |
-          touch requirements_dev.txt
-          pip install -r requirements_dev.txt -e .[dev]
+        run: pip install -r requirements.txt
 
       - name: Check links
-        run: tox -e docs -- -b linkcheck
+        run: sphinx-build -EWT --keep-going docs build/html -- -b linkcheck

@@ -21,4 +21,3 @@ if [[ "$response" =~ ^(yes|y)$ ]] ; then
     podman tag ${name}:latest ${name}:${1}
     podman push ${name}:latest
     podman push ${name}:${1}
-fi
