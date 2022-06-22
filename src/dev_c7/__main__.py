@@ -15,6 +15,6 @@ def main(args=None):
     say_hello_lots(HelloClass(args.name), args.times)
 
 
-# test with: pipenv run python -m python3_pip_skeleton
+# test with: pipenv run python -m dev_c7
 if __name__ == "__main__":
     main()

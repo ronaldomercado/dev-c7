@@ -1,24 +1,24 @@
 API
 ===
 
-.. automodule:: python3_pip_skeleton
+.. automodule:: dev_c7
 
-    ``python3_pip_skeleton``
+    ``dev_c7``
     -----------------------------------
 
-This is the internal API reference for python3_pip_skeleton
+This is the internal API reference for dev_c7
 
 You can mix verbose text with docstring and signature extraction by
 using ``autoclass`` and ``autofunction`` directives instead of
 ``automodule`` below.
 
-.. data:: python3_pip_skeleton.__version__
+.. data:: dev_c7.__version__
     :type: str
 
     Version number as calculated by https://github.com/pypa/setuptools_scm
 
-.. automodule:: python3_pip_skeleton.hello
+.. automodule:: dev_c7.hello
     :members:
 
-    ``python3_pip_skeleton.hello``
+    ``dev_c7.hello``
     -----------------------------------------

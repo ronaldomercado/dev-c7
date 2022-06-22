@@ -35,14 +35,14 @@ Installing the library
 
 You can now use ``pip`` to install the library::
 
-    python3 -m pip install python3-pip-skeleton
+    python3 -m pip install dev-c7
 
 If you require a feature that is not currently released you can also install
 from github::
 
-    python3 -m pip install git+https://github.com/epics-containers/python3-pip-skeleton.git
+    python3 -m pip install git+https://github.com/epics-containers/dev-c7.git
 
 The library should now be installed and the commandline interface on your path.
 You can check the version that has been installed by typing::
 
-    python3-pip-skeleton --version
+    dev-c7 --version

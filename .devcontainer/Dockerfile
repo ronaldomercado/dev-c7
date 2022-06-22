@@ -27,5 +27,5 @@ FROM base as runtime
 
 COPY --from=developer /root/.local /root/.local
 
-ENTRYPOINT ["python3-pip-skeleton"]
+ENTRYPOINT ["dev-c7"]
 CMD ["--version"]
