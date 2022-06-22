@@ -12,7 +12,17 @@ from subprocess import check_output
 project = "dev-c7"
 
 # The full version, including alpha/beta/rc tags.
-release = str(check_output(["git", "describe", "--tags"]))
+try:
+    # Something like 1.5.0-3-g3ab26eb
+    release_b = check_output(
+        ["git", "describe", "--abbrev=7", "--dirty", "--always", "--tags"]
+    )
+    release = release_b.decode()
+except BaseException:
+    # No git, or not under a git repo
+    release = "0.0"
+
+print("release is", release)
 
 # The short X.Y version.
 if "+" in release:
