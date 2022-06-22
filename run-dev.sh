@@ -18,11 +18,17 @@ volumes="-v /dls_sw/prod:/dls_sw/prod \
         -v /dls/science/users/:/dls/science/users/"
 
 devices="-v /dev/ttyS0:/dev/ttyS0 -v /dev/dri:/dev/dri"
-opts="--net=host --rm -ti --hostname dev-c7"
+opts="--net=host --rm -ti --hostname dev-c7 --storage-opt ignore_chown_errors=true"
 # this should keep original groups assignment but does not (so we cant write in work)
 identity="--security-opt=label=type:container_runtime_t --annotation run.oci.keep_original_groups=1 --userns=keep-id"
+
+# this enables secondary groups assuming crun is installed
+if which crun > /dev/null ; then 
+    runtime="--runtime /usr/bin/crun"
+fi
 
 # -l loads profile and bashrc
 command="/bin/bash -l"
 
-podman run ${environ} ${identity} ${volumes} ${devices} ${@} ${opts} ${image} ${command}
+podman run ${runtime} ${environ} ${identity} ${volumes} \
+    ${devices} ${@} ${opts} ${image} ${command}
