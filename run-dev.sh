@@ -4,10 +4,7 @@
 
 # NOTE that changes to this file should also be propgated to .devcontainer.json
 
-# enable gcloud for authentication to gcr.io
-module load gcloud
-
-image=gcr.io/diamond-pubreg/controls/dev-c7:latest
+image=ghcr.io/dls-controls/dev-c7:latest
 
 environ="-e DISPLAY -e HOME"
 volumes="-v /dls_sw/prod:/dls_sw/prod \

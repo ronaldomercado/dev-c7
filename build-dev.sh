@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name=gcr.io/diamond-pubreg/controls/dev-c7
+name=ghcr.io/dls-controls/dev-c7
 
 if [ -z ${1} ] ; then
     echo usage: build-dev.sh '<new version number>'
@@ -10,10 +10,10 @@ fi
 
 set -e
 podman build\
-    --network host\
-    -t ${name}:latest .
+    --network host \
+    -t ${name}:latest \
+    ./docker
 
-module load gcloud
 
 read -r -p "dev-c7 built OK. Push to ${name}:${1} [y/N] " response
 response=${response,,}    # tolower
