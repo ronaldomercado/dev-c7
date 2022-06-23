@@ -1,7 +1,6 @@
-DLS RHEL7 in a Box Developer Container
-======================================
 
-A Diamond Light Source specific developer container.
+
+
 
 The launcher script is specific to machines that have /dls and /dls_sw mounted 
 so intended for running on DLS workstations only.
@@ -10,7 +9,7 @@ This is for getting DLS RHEL7 dev environment working in a container hosted on
 RHEL8.
 
 This is a stopgap so that we can use effort to promote the kubernetes 
-model https://github.com/epics-containers instead of using effort in 
+model https://github.com/dls-controls instead of using effort in 
 rebuilding our toolchain for RHEL8.
 
 How to use
@@ -61,7 +60,7 @@ work with edm (optional)
 
 If you want to use edm then you will need to install the local fonts on your
 host machine. Use ``sudo yum install`` on each of the rpms in this folder
-https://github.com/epics-containers/k8s-epics-utils/tree/main/dls-images/edm-fonts
+https://github.com/dls-controls/k8s-epics-utils/tree/main/dls-images/edm-fonts
 
 VSCode integration
 ==================

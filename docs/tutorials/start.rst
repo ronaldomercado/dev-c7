@@ -1,0 +1,63 @@
+Quick Start
+===========
+
+First, if you have never used containers at DLS before, then you must 
+do an initial podman setup::
+
+    /dls_sw/apps/setup-podman/setup.sh
+
+
+Next, copy the startup script to your local bin directory and make it 
+executable::
+
+    curl https://raw.githubusercontent.com/dls-controls/dev-c7/main/run-dev-c7.sh -o $HOME/bin/run-dev-c7.sh
+    chmod +x $HOME/bin/run-dev-c7.sh
+
+Finally, launch an instance of the container by typing::
+
+    run-dev-c7.sh
+
+.. note::
+    For the first invocation of an updated version of the container there 
+    will be 30 a second delay while the filesystem user id namespace mapping 
+    is cached.
+
+See optional parameters to the startup script with::
+
+    run-dev-c7.sh -h
+
+Usage
+~~~~~
+
+At a dev-c7 prompt you can work normally as if you were sitting at a RHEL7 
+workstation. Everything should work as before although there are a few 
+differences, see
+`../explanations/differences`. 
+
+If you find anything that does not work or have suggestions for improvement,
+please report it `HERE <link URL>`_.
+
+- You can launch multiple instances of dev-c7 and they will share the
+  same container. 
+- You can run GUI apps as normal.
+- You have full sudo rights and can install anything you need into the
+  container with ``yum install``
+- Changes to the container such as ``yum install`` will be persisted 
+  until it is deleted.
+- If you have permanent additions to the container that you would like
+  to implement see `deriving`
+
+Deleting the container
+~~~~~~~~~~~~~~~~~~~~~~
+
+To reset the container back to its original state perform the following 
+command. This will stop the container and delete it's state. All
+dev-c7 prompts you have open will be closed.::
+
+    podman rm -ft0 dev-c7
+
+.. warning::
+    Any changes you have made to the container itself will be lost when you 
+    execute the above command. This includes
+    any ``yum install`` and any changes to the operating system files.
+    See `../explanations/how_it_works` for more detail.
