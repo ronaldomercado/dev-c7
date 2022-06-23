@@ -52,8 +52,11 @@ COPY /sudoers /etc/sudoers
 RUN yum install -y xfreerdp zenity
 
 # useful tools 
-RUN yum install -y meld tk
+RUN yum install -y meld tk dejavu-sans-mono-fonts gnome-terminal xterm xmessage
 
 # Workaround to ensure all locales are available
 RUN sed -i "/override_install_langs=en_US/d" /etc/yum.conf
 RUN yum reinstall -y glibc-common
+
+# make sure default shell is /bin/bash for podman users inside the container
+RUN echo DSHELL=/bin/bash >>  /etc/adduser.conf
