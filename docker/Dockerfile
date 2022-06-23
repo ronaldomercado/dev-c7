@@ -2,7 +2,7 @@
 # hosted on RHEL8
 #
 # This is a stopgap so that we can use effort to promote the
-# kubernetes model https://github.com/epics-containers instead of spending
+# kubernetes model https://github.com/dls-controls instead of spending
 # effort in rebuilding our toolchain for RHEL8
 
 FROM centos:7
@@ -52,7 +52,7 @@ COPY /sudoers /etc/sudoers
 RUN yum install -y xfreerdp zenity
 
 # useful tools 
-RUN yum install -y meld tk
+RUN yum install -y meld tk dejavu-sans-mono-fonts gnome-terminal xterm xmessage
 
 # Workaround to ensure all locales are available
 RUN sed -i "/override_install_langs=en_US/d" /etc/yum.conf

@@ -1,48 +1,33 @@
-dev-c7
-===========================
+DLS RHEL7 in a Box Developer Container
+======================================
 
-|code_ci| |docs_ci| |coverage| |pypi_version| |license|
+|code_ci| |docs_ci| |license|
 
-This is where you should write a short paragraph that describes what your module does,
-how it does it, and why people should use it.
+A Diamond Light Source specific developer container.
+
+This repo defines a container and launch script for re-creating the
+DLS Controls RHEL7 developer environment on a RHEL8 Workstation.
 
 ============== ==============================================================
-PyPI           ``pip install dev-c7``
-Source code    https://github.com/epics-containers/dev-c7
-Documentation  https://epics-containers.github.io/dev-c7
-Releases       https://github.com/epics-containers/dev-c7/releases
+Source code    https://github.com/dls-controls/dev-c7
+Documentation  https://dls-controls.github.io/dev-c7
+Releases       https://github.com/dls-controls/dev-c7/releases
 ============== ==============================================================
 
-This is where you should put some images or code snippets that illustrate
-some relevant examples. If it is a library then you might put some
-introductory code here:
+Quick Start
+===========
 
-.. code:: python
+See the tutorial at https://dls-controls.github.io/dev-c7/main/tutorials/start.html
 
-    from dev_c7.hello import HelloClass
 
-    hello = HelloClass("me")
-    print(hello.format_greeting())
 
-Or if it is a commandline tool then you might put some example commands here::
-
-    dev-c7 person --times=2
-
-.. |code_ci| image:: https://github.com/epics-containers/dev-c7/workflows/Code%20CI/badge.svg?branch=main
-    :target: https://github.com/epics-containers/dev-c7/actions?query=workflow%3A%22Code+CI%22
+.. |code_ci| image:: https://github.com/dls-controls/dev-c7/workflows/Code%20CI/badge.svg?branch=main
+    :target: https://github.com/dls-controls/dev-c7/actions?query=workflow%3A%22Code+CI%22
     :alt: Code CI
 
-.. |docs_ci| image:: https://github.com/epics-containers/dev-c7/workflows/Docs%20CI/badge.svg?branch=main
-    :target: https://github.com/epics-containers/dev-c7/actions?query=workflow%3A%22Docs+CI%22
+.. |docs_ci| image:: https://github.com/dls-controls/dev-c7/workflows/Docs%20CI/badge.svg?branch=main
+    :target: https://github.com/dls-controls/dev-c7/actions?query=workflow%3A%22Docs+CI%22
     :alt: Docs CI
-
-.. |coverage| image:: https://codecov.io/gh/epics-containers/dev-c7/branch/main/graph/badge.svg
-    :target: https://codecov.io/gh/epics-containers/dev-c7
-    :alt: Test Coverage
-
-.. |pypi_version| image:: https://img.shields.io/pypi/v/dev-c7.svg
-    :target: https://pypi.org/project/dev-c7
-    :alt: Latest PyPI version
 
 .. |license| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
     :target: https://opensource.org/licenses/Apache-2.0
@@ -52,4 +37,4 @@ Or if it is a commandline tool then you might put some example commands here::
     Anything below this line is used when viewing README.rst and will be replaced
     when included in index.rst
 
-See https://epics-containers.github.io/dev-c7 for more detailed documentation.
+See https://dls-controls.github.io/dev-c7 for more detailed documentation.

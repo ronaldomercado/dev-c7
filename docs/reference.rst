@@ -9,9 +9,4 @@ Practical step-by-step guides for the more experienced user.
     :caption: Reference
 
     reference/contributing
-    Releases <https://github.com/epics-containers/dev-c7/releases>
-    Index <genindex.html#http://>
-
-..
-    Index link above is a hack to make genindex.html a relative link
-    https://stackoverflow.com/a/31820846
+    Releases <https://github.com/dls-controls/dev-c7/releases>
