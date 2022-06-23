@@ -17,12 +17,14 @@ volumes="-v /dls_sw/prod:/dls_sw/prod \
         -v ${HOME}:${HOME} \
         -v /dls/science/users/:/dls/science/users/"
 
-devices="-v /dev/ttyS0:/dev/ttyS0 -v /dev/dri:/dev/dri"
-opts="--net=host --rm -ti --hostname dev-c7 --storage-opt ignore_chown_errors=true"
-# this should keep original groups assignment but does not (so we cant write in work)
-identity="--security-opt=label=type:container_runtime_t --annotation run.oci.keep_original_groups=1 --userns=keep-id"
+devices="-v /dev/ttyS0:/dev/ttyS0"
+opts="--net=host --hostname dev-c7"
+# the identity settings enable secondary groups in the container
+identity="--security-opt=label=type:container_runtime_t --userns=keep-id \
+          --annotation run.oci.keep_original_groups=1 \
+          --storage-opt ignore_chown_errors=true"
 
-# this enables secondary groups assuming crun is installed
+# this runtime is also required for secondary groups
 if which crun > /dev/null ; then 
     runtime="--runtime /usr/bin/crun"
 fi
@@ -30,5 +32,26 @@ fi
 # -l loads profile and bashrc
 command="/bin/bash -l"
 
-podman run ${runtime} ${environ} ${identity} ${volumes} \
-    ${devices} ${@} ${opts} ${image} ${command}
+container_name=dev-c7
+
+################################################################################
+# Start the container in the background and then launch an interactive bash  
+# session in the container. This means that all invocations of this script
+# share the same container. Also changes to the container filesystem are
+# preserved unless an explict 'podman rm dev-c7' is invoked.
+################################################################################
+
+if [ "$(podman ps -q -f name=${container_name})" ]; then
+    : # container already running so no prep required
+elif [ "$(podman ps -qa -f name=${container_name})" ]; then
+    # start the stopped container
+    podman start ${container_name}
+else
+    # create a new background container making process 1 be 'sleep'
+    podman run -d --name ${container_name} ${runtime} ${environ}\
+        ${identity} ${volumes} ${devices} ${opts} ${image} \
+        sleep 100d
+fi
+# Execute a shell in the container - this allows multiple shells and avoids 
+# using process 1 so users can exit the shell without killing the container
+podman exec -it ${container_name} ${command}
