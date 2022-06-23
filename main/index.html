@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dev-c7 &mdash; dev-c7 d4fc747
+  <title>DLS RHEL7 in a Box Developer Container &mdash; dev-c7 0c7beee
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -23,7 +23,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="tutorials/installation.html" /> 
+    <link rel="next" title="Quick Start" href="tutorials/start.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,7 +35,7 @@
             <img src="_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                d4fc747
+                0c7beee
 
               </div>
 <div role="search">
@@ -48,21 +48,24 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/vscode.html">VSCode integration</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="how-to/accomplish-a-task.html">How to accomplish a task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/deriving.html">Derive your own container image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="explanations/why-is-something-so.html">Why is something the way it is</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/how_it_works.html">How the dev-c7 container works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/differences.html">RHEL7 native vs dev-c7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/why_dev_c7.html">Purpose of dev-c7 Container</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="reference/contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/epics-containers/dev-c7/releases">Releases</a></li>
-<li class="toctree-l1"><a class="reference external" href="genindex.html#http://">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dls-controls/dev-c7/releases">Releases</a></li>
 </ul>
 
         </div>
@@ -79,7 +82,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>dev-c7</li>
+      <li>DLS RHEL7 in a Box Developer Container</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -89,44 +92,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dev-c7">
-<h1>dev-c7<a class="headerlink" href="#dev-c7" title="Permalink to this heading"></a></h1>
-<p><a class="reference external" href="https://github.com/epics-containers/dev-c7/actions?query=workflow%3A%22Code+CI%22"><img alt="Code CI" src="https://github.com/epics-containers/dev-c7/workflows/Code%20CI/badge.svg?branch=main" /></a> <a class="reference external" href="https://github.com/epics-containers/dev-c7/actions?query=workflow%3A%22Docs+CI%22"><img alt="Docs CI" src="https://github.com/epics-containers/dev-c7/workflows/Docs%20CI/badge.svg?branch=main" /></a> <a class="reference external" href="https://codecov.io/gh/epics-containers/dev-c7"><img alt="Test Coverage" src="https://codecov.io/gh/epics-containers/dev-c7/branch/main/graph/badge.svg" /></a> <a class="reference external" href="https://pypi.org/project/dev-c7"><img alt="Latest PyPI version" src="https://img.shields.io/pypi/v/dev-c7.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/Apache-2.0"><img alt="Apache License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a></p>
-<p>This is where you should write a short paragraph that describes what your module does,
-how it does it, and why people should use it.</p>
+  <section id="dls-rhel7-in-a-box-developer-container">
+<h1>DLS RHEL7 in a Box Developer Container<a class="headerlink" href="#dls-rhel7-in-a-box-developer-container" title="Permalink to this heading"></a></h1>
+<p><a class="reference external" href="https://github.com/dls-controls/dev-c7/actions?query=workflow%3A%22Code+CI%22"><img alt="Code CI" src="https://github.com/dls-controls/dev-c7/workflows/Code%20CI/badge.svg?branch=main" /></a> <a class="reference external" href="https://github.com/dls-controls/dev-c7/actions?query=workflow%3A%22Docs+CI%22"><img alt="Docs CI" src="https://github.com/dls-controls/dev-c7/workflows/Docs%20CI/badge.svg?branch=main" /></a> <a class="reference external" href="https://opensource.org/licenses/Apache-2.0"><img alt="Apache License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a></p>
+<p>A Diamond Light Source specific developer container.</p>
+<p>This repo defines a container and launch script for re-creating the
+DLS Controls RHEL7 developer environment on a RHEL8 Workstation.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 18%" />
 <col style="width: 82%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p>PyPI</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dev-c7</span></code></p></td>
+<tr class="row-odd"><td><p>Source code</p></td>
+<td><p><a class="reference external" href="https://github.com/dls-controls/dev-c7">https://github.com/dls-controls/dev-c7</a></p></td>
 </tr>
-<tr class="row-even"><td><p>Source code</p></td>
-<td><p><a class="reference external" href="https://github.com/epics-containers/dev-c7">https://github.com/epics-containers/dev-c7</a></p></td>
+<tr class="row-even"><td><p>Documentation</p></td>
+<td><p><a class="reference external" href="https://dls-controls.github.io/dev-c7">https://dls-controls.github.io/dev-c7</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>Documentation</p></td>
-<td><p><a class="reference external" href="https://epics-containers.github.io/dev-c7">https://epics-containers.github.io/dev-c7</a></p></td>
-</tr>
-<tr class="row-even"><td><p>Releases</p></td>
-<td><p><a class="reference external" href="https://github.com/epics-containers/dev-c7/releases">https://github.com/epics-containers/dev-c7/releases</a></p></td>
+<tr class="row-odd"><td><p>Releases</p></td>
+<td><p><a class="reference external" href="https://github.com/dls-controls/dev-c7/releases">https://github.com/dls-controls/dev-c7/releases</a></p></td>
 </tr>
 </tbody>
 </table>
-<p>This is where you should put some images or code snippets that illustrate
-some relevant examples. If it is a library then you might put some
-introductory code here:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dev_c7.hello</span> <span class="kn">import</span> <span class="n">HelloClass</span>
-
-<span class="n">hello</span> <span class="o">=</span> <span class="n">HelloClass</span><span class="p">(</span><span class="s2">&quot;me&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">hello</span><span class="o">.</span><span class="n">format_greeting</span><span class="p">())</span>
-</pre></div>
-</div>
-<p>Or if it is a commandline tool then you might put some example commands here:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span> <span class="n">person</span> <span class="o">--</span><span class="n">times</span><span class="o">=</span><span class="mi">2</span>
-</pre></div>
-</div>
+</section>
+<section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading"></a></h1>
+<p>See the tutorial at <a class="reference external" href="https://dls-controls.github.io/dev-c7/main/tutorials/start.html">https://dls-controls.github.io/dev-c7/main/tutorials/start.html</a></p>
 <section id="how-the-documentation-is-structured">
 <h2>How the documentation is structured<a class="headerlink" href="#how-the-documentation-is-structured" title="Permalink to this heading"></a></h2>
 <p>Documentation is split into four categories, also accessible from links in the
@@ -137,10 +129,21 @@ side-bar.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/installation.html#check-your-version-of-python">Check your version of python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/installation.html#create-a-virtual-environment">Create a virtual environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/installation.html#installing-the-library">Installing the library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/start.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/start.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/start.html#deleting-the-container">Deleting the container</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/vscode.html">VSCode integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#convince-vscode-to-use-podman">Convince vscode to use podman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#install-the-remote-development-plugin">Install the remote development plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#add-container-config-to-local-repository">add container config to local repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#caveat-user-id">Caveat - User ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#advanced-enable-the-docker-plugin">Advanced - enable the docker plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vscode.html#install-podman-docker">install podman-docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vscode.html#edit-user-settings">edit user settings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -152,7 +155,13 @@ side-bar.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="how-to/accomplish-a-task.html">How to accomplish a task</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/deriving.html">Derive your own container image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#edm-fonts">EDM Fonts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#profile-mismatch">Profile mismatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#insufficient-uids-gids">Insufficient UIDs/GIDs</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -162,7 +171,15 @@ side-bar.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="explanations/why-is-something-so.html">Why is something the way it is</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/how_it_works.html">How the dev-c7 container works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#container-lifetime">Container lifetime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#file-systems">File Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#user-profile">User Profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#todo">TODO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/differences.html">RHEL7 native vs dev-c7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/why_dev_c7.html">Purpose of dev-c7 Container</a></li>
 </ul>
 </div>
 </section>
@@ -185,8 +202,7 @@ side-bar.</p>
 <li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#updating-the-tools">Updating the tools</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/epics-containers/dev-c7/releases">Releases</a></li>
-<li class="toctree-l1"><a class="reference external" href="genindex.html#http://">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dls-controls/dev-c7/releases">Releases</a></li>
 </ul>
 </div>
 </section>
@@ -201,7 +217,7 @@ side-bar.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tutorials/installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tutorials/start.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -226,7 +242,7 @@ side-bar.</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      d4fc747
+      0c7beee
 
       <span class="fa fa-caret-down"></span>
     </span>
