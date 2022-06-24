@@ -1,106 +1,43 @@
 VSCode integration
 ==================
 
+.. note::
+
+    This feature has been removed from ``dev-c7``.
+    Unfortunately vscode has recently restricted devcontainers to require that 
+    they are derived from a Debian based image. For this reason the dev-c7
+    container is not compatible as it is required to be based on Centos 7. 
+
 VSCode has beautiful integration for developing in containers. See here
 https://code.visualstudio.com/docs/remote/containers for a detailed 
 description of this feature. 
 
-To make devcontainers work with podman requires a few extra settings.
+Although the tight integration is no longer supported for ``dev-c7`` it is still 
+possible to use VSCode and start the ``dev-c7`` container in each of its 
+integrated terminals.
 
-I believe this will only work on RHEL8. The earlier version of podman on RHEL7
-does not have the correct API.
+If you work in this way, you will not be able to directly use the 
+vscode C++ debugger or launch unit tests from the test explorer. 
+However, approaches to restore
+these features are under investigation!
 
-Convince vscode to use podman
------------------------------
 
-Add the following to  
-/home/[YOUR USER NAME]/.config/Code/User/settings.json 
-to make vscode use podman to launch devcontainers::
+Python Development
+------------------
+
+I have provided an **experimental** devcontainer in the repo that allows 
+developers to use the full suite of VSCode integration features for 
+developing:
+
+- DLS Python 3 pipenv based workflow with dls-python3
+- python3-pip-skeleton based workflow with python3.10
+
+Note that to make vscode devcontainers work with python requires the plugin 
+``ms-vscode-remote.vscode-remote-extensionpack`` and the
+following setting in 
+``$HOME/.config/Code/User/settings.json``::
 
     "remote.containers.dockerPath": "podman"
 
-These additional settings ensure that each terminal loads the bash (login) 
-profile by default. 
-The login profile includes essential setup for DLS developer environment::
-
-    "terminal.integrated.defaultProfile.linux": "bash (login)",
-    "terminal.integrated.profiles.linux": {
-        "bash (login)": {
-            "args": [
-                "-l"
-            ],
-            "path": "bash"
-        }
-    }
-
-
-Install the remote development plugin
--------------------------------------
-
-Run up vscode and install the remote development plugin:
-
-    module load vscode
-    code
-
-Inside vscode:
-    
-    Ctrl+P
-    ext install ms-vscode-remote.vscode-remote-extensionpack
-
-add container config to local repository
-----------------------------------------
-
-Finally drop the file ``.devcontainer.json``` from here
-https://github.com/dls-controls/dev-c7/blob/main/.devcontainer.json
-into the root folder of a project
-and then open that folder with VSCode. You will be prompted to reopen the project
-in a container.
-
-Now all the terminals you open in vscode will be inside the container and 
-all file browsing and launchers will also be in the container.
-
-
-Caveat - User ID
-----------------
-
-Unfortunately run-dev.sh uses --userns=keep-id to give you your native user id
-inside and outside of the container. With VSCode integration this starts the
-container OK but fails when VSCode tries to exec a service in the container.
-Therefore we drop this option in .devcontainer.json and you will run as root
-inside the VSCode terminals. 
-
-Running as root has minimal side affects, any interaction
-with host filesystems will use your own ID (because podman runs in your user
-ID). SSH keys will still work but to SSH to another machine you will need
-to use the following:
-```bash
-ssh your_fed_id@machine_name
-```
-
-Advanced - enable the docker plugin
------------------------------------
-
-The docker plugin allows you to manage containers from the explorer in 
-vscode. This requires access to the docker socket which podman does not have.
-However you can make podman look like docker with the following steps.
-
-The docker plugin is here https://code.visualstudio.com/docs/containers/overview
-
-install podman-docker
-~~~~~~~~~~~~~~~~~~~~~
-
-Execute these commands::
-
-    sudo yum install podman-docker
-    systemctl --user enable --now podman.socket
-    
-edit user settings
-~~~~~~~~~~~~~~~~~~
-
-Add the following to  /home/[YOUR USER NAME]/.config/Code/User/settings.json::
-
-    "docker.dockerodeOptions": {
-        "socketPath": "/run/user/[YOUR USER ID]/podman/podman.sock"
-    },
-
-(you can find your uid with the `id` command)
+See the notes here: 
+https://github.com/dls-controls/dev-c7/blob/dev/.devcontainer

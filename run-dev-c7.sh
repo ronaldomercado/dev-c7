@@ -43,12 +43,12 @@ devices="-v /dev/ttyS0:/dev/ttyS0"
 opts="--net=host --hostname ${hostname:-dev-c7}"
 # the identity settings enable secondary groups in the container
 identity="--security-opt=label=type:container_runtime_t --userns=keep-id \
-          --annotation run.oci.keep_original_groups=1 \
-          --storage-opt ignore_chown_errors=true"
+          --annotation run.oci.keep_original_groups=1"
 
 # this runtime is also required for secondary groups
-if which crun > /dev/null ; then 
+if which crun 2> /dev/null ; then 
     runtime="--runtime /usr/bin/crun"
+    identity="${identity} --storage-opt ignore_chown_errors=true"
 fi
 
 # -l loads profile and bashrc
