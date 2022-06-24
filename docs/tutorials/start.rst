@@ -1,11 +1,17 @@
 Quick Start
 ===========
 
+Setup Podman
+------------
+
 First, if you have never used containers at DLS before, then you must 
 do an initial podman setup::
 
     /dls_sw/apps/setup-podman/setup.sh
 
+
+Startup Script run-dev-c7.sh
+----------------------------
 
 Next, copy the startup script to your local bin directory and make it 
 executable::
@@ -27,7 +33,7 @@ See optional parameters to the startup script with::
     run-dev-c7.sh -h
 
 Usage
-~~~~~
+-----
 
 At a dev-c7 prompt you can work normally as if you were sitting at a RHEL7 
 workstation. Everything should work as before although there are a few 
@@ -48,16 +54,21 @@ please report it `HERE <link URL>`_.
   to implement see `deriving`
 
 Deleting the container
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 To reset the container back to its original state perform the following 
 command. This will stop the container and delete it's state. All
-dev-c7 prompts you have open will be closed.::
+dev-c7 prompts you have open will be closed::
 
     podman rm -ft0 dev-c7
+
+When you next launch the container will be started with its file system
+initialized back to the default state specified in the image at
+ghcr.io/dls-controls/dev-c7:latest.
 
 .. warning::
     Any changes you have made to the container itself will be lost when you 
     execute the above command. This includes
     any ``yum install`` and any changes to the operating system files.
-    See `../explanations/how_it_works` for more detail.
+    See `../explanations/how_it_works` for more detail. To permanently 
+    persist changes see `deriving`.

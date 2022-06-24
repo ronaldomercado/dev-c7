@@ -12,15 +12,6 @@ themselves.
 Use ``sudo yum install`` on each of the rpms in this folder
 https://github.com/dls-controls/dev-c7/tree/dev/edm-fonts
 
-Profile mismatch
-----------------
-When using vscode and the devcontainer the first terminal will usually NOT
-have run your login profile (.bash_profile).
-
-To work around this, close and reopen the 1st terminal or type::
-```
-bash -l
-```
 
 Insufficient UIDs/GIDs
 ----------------------
@@ -38,3 +29,12 @@ The following command will stop the pause process and release the files for edit
 
     podman system migrate
 
+Profile mismatch
+----------------
+When using vscode and the devcontainer the first terminal will usually NOT
+have run your login profile (.bash_profile).
+
+To work around this, close and reopen the 1st terminal or type::
+
+    bash -l
+    
