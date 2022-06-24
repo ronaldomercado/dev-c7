@@ -13,8 +13,7 @@
     "workspaceFolder": "${localWorkspaceFolder}",
     "remoteEnv": {
         "DISPLAY": "${localEnv:DISPLAY}",
-        "HOME": "${localEnv:HOME}",
-        "HOSTNAME": "dev-c7"
+        "HOME": "${localEnv:HOME}"
     },
     "remoteUser": "${localEnv:USER}",
     // Set *default* container specific settings.json values on container create.
@@ -35,13 +34,13 @@
         "alefragnani.bookmarks"
     ],
     "features": {
-        "git": "os-provided",
+        "git": "os-provided"
         // "docker-from-docker": "20.10"
     },
     // commands run outside of the container before launch
     "initializeCommand": "echo 'Hello from initializeCommand'",
-    // run in the container after creation - make users use bash
-    "postStartCommand": "sed -i s#/bin/sh#/bin/bash# /etc/passwd",
+    // run in the container after creation
+    "onCreateCommand": "sudo /start.sh",
     // run in the container after each start
     "postStartCommand": "echo 'Hello from postStartCommand'",
     "mounts": [

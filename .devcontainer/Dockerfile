@@ -7,14 +7,17 @@ COPY /sudoers /etc/sudoers
 
 WORKDIR /workspaces
 
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
     locales \
     libc-dev-bin \
     libssl-dev \
+    environment-modules \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
 # dls-python3 links older versions of some dynamic libraries
 COPY libs/* /usr/lib/x86_64-linux-gnu/
+COPY start.sh /
 
 ENTRYPOINT [ "bash", "-l" ]
