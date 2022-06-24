@@ -1,0 +1,70 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.194.0/containers/ubuntu
+{
+    "name": "epics-python-dev",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "target": "developer",
+        "context": ".",
+        "args": {}
+    },
+    // these two lines mount the local workspace folder so that the path is the same inside and outside the container.
+    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind,consistency=cached",
+    "workspaceFolder": "${localWorkspaceFolder}",
+    "remoteEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "HOME": "${localEnv:HOME}",
+        "HOSTNAME": "dev-c7"
+    },
+    "remoteUser": "${localEnv:USER}",
+    // Set *default* container specific settings.json values on container create.
+    "settings": {},
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-vscode.cmake-tools",
+        "streetsidesoftware.code-spell-checker",
+        "ryanluker.vscode-coverage-gutters",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "gruntfuggly.todo-tree",
+        "redhat.vscode-yaml",
+        "nsd.vscode-epics",
+        "alefragnani.bookmarks"
+    ],
+    "features": {
+        "git": "os-provided",
+        // "docker-from-docker": "20.10"
+    },
+    // commands run outside of the container before launch
+    "initializeCommand": "echo 'Hello from initializeCommand'",
+    // run in the container after creation - make users use bash
+    "postStartCommand": "sed -i s#/bin/sh#/bin/bash# /etc/passwd",
+    // run in the container after each start
+    "postStartCommand": "echo 'Hello from postStartCommand'",
+    "mounts": [
+        "source=/dls/detectors,target=/dls/detectors,type=bind,consistency=cached",
+        "source=/dls_sw/prod,target=/dls_sw/prod,type=bind,consistency=cached",
+        "source=/dls_sw/work,target=/dls_sw/work,type=bind,consistency=cached",
+        "source=/dls_sw/epics,target=/dls_sw/epics,type=bind,consistency=cached",
+        "source=/dls_sw/targetOS/vxWorks/Tornado-2.2,target=//dls_sw/targetOS/vxWorks/Tornado-2.2,type=bind,consistency=cached",
+        "source=/dls_sw/apps,target=/dls_sw/apps,type=bind,consistency=cached",
+        "source=/dls_sw/etc,target=/dls_sw/etc,type=bind,consistency=cached",
+        "source=/home,target=/home,type=bind,consistency=cached",
+        "source=/scratch/,target=/scratch/,type=bind,consistency=cached",
+        "source=/dls/science/users,target=/dls/science/users,type=bind,consistency=cached"
+    ],
+    "runArgs": [
+        "-h=dev-c7",
+        "-v/dev/ttyS0:/dev/ttyS0",
+        "--privileged",
+        "--net=host",
+        "--security-opt=label=type:container_runtime_t",
+        "--userns=keep-id",
+        "--annotation=run.oci.keep_original_groups=1",
+        "--storage-opt=ignore_chown_errors=true",
+        "--runtime=/usr/bin/crun"
+    ]
+}
