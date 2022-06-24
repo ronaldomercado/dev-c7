@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VSCode integration &mdash; dev-c7 2.0.0-rc1-2-g41611eb
+  <title>VSCode integration &mdash; dev-c7 2.0.0-rc1-8-g59d4b75
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Derive your own container image" href="../how-to/deriving.html" />
+    <link rel="next" title="Managing Containers and Images on a Workstation" href="../how-to/containers.html" />
     <link rel="prev" title="Quick Start" href="start.html" /> 
 </head>
 
@@ -36,7 +36,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc1-2-g41611eb
+                2.0.0-rc1-8-g59d4b75
 
               </div>
 <div role="search">
@@ -51,28 +51,21 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="start.html">Quick Start</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">VSCode integration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#convince-vscode-to-use-podman">Convince vscode to use podman</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-the-remote-development-plugin">Install the remote development plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#add-container-config-to-local-repository">add container config to local repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#caveat-user-id">Caveat - User ID</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#advanced-enable-the-docker-plugin">Advanced - enable the docker plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#install-podman-docker">install podman-docker</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#edit-user-settings">edit user settings</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#python-development">Python Development</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../how-to/deriving.html">Derive your own container image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/containers.html">Managing Containers and Images on a Workstation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how-to/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/deriving.html">Derive your own container image</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../explanations/how_it_works.html">How the dev-c7 container works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/how_it_works.html">How the dev-c7 Container Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../explanations/differences.html">RHEL7 native vs dev-c7</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../explanations/why_dev_c7.html">Purpose of dev-c7 Container</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/why_dev_c7.html">Purpose of the dev-c7 Container</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -106,97 +99,41 @@
              
   <section id="vscode-integration">
 <h1>VSCode integration<a class="headerlink" href="#vscode-integration" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature has been removed from <code class="docutils literal notranslate"><span class="pre">dev-c7</span></code>.
+Unfortunately vscode has recently restricted devcontainers to require that
+they are derived from a Debian based image. For this reason the dev-c7
+container is not compatible as it is required to be based on Centos 7.</p>
+</div>
 <p>VSCode has beautiful integration for developing in containers. See here
 <a class="reference external" href="https://code.visualstudio.com/docs/remote/containers">https://code.visualstudio.com/docs/remote/containers</a> for a detailed
 description of this feature.</p>
-<p>To make devcontainers work with podman requires a few extra settings.</p>
-<p>I believe this will only work on RHEL8. The earlier version of podman on RHEL7
-does not have the correct API.</p>
-<section id="convince-vscode-to-use-podman">
-<h2>Convince vscode to use podman<a class="headerlink" href="#convince-vscode-to-use-podman" title="Permalink to this heading"></a></h2>
-<p>Add the following to
-/home/[YOUR USER NAME]/.config/Code/User/settings.json
-to make vscode use podman to launch devcontainers:</p>
+<p>Although the tight integration is no longer supported for <code class="docutils literal notranslate"><span class="pre">dev-c7</span></code> it is still
+possible to use VSCode and start the <code class="docutils literal notranslate"><span class="pre">dev-c7</span></code> container in each of its
+integrated terminals.</p>
+<p>If you work in this way, you will not be able to directly use the
+vscode C++ debugger or launch unit tests from the test explorer.
+However, approaches to restore
+these features are under investigation!</p>
+<section id="python-development">
+<h2>Python Development<a class="headerlink" href="#python-development" title="Permalink to this heading"></a></h2>
+<p>I have provided an <strong>experimental</strong> devcontainer in the repo that allows
+developers to use the full suite of VSCode integration features for
+developing:</p>
+<ul class="simple">
+<li><p>DLS Python 3 pipenv based workflow with dls-python3</p></li>
+<li><p>python3-pip-skeleton based workflow with python3.10</p></li>
+</ul>
+<p>Note that to make vscode devcontainers work with python requires the plugin
+<code class="docutils literal notranslate"><span class="pre">ms-vscode-remote.vscode-remote-extensionpack</span></code> and the
+following setting in
+<code class="docutils literal notranslate"><span class="pre">$HOME/.config/Code/User/settings.json</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;remote.containers.dockerPath&quot;</span><span class="p">:</span> <span class="s2">&quot;podman&quot;</span>
 </pre></div>
 </div>
-<p>These additional settings ensure that each terminal loads the bash (login)
-profile by default.
-The login profile includes essential setup for DLS developer environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;terminal.integrated.defaultProfile.linux&quot;</span><span class="p">:</span> <span class="s2">&quot;bash (login)&quot;</span><span class="p">,</span>
-<span class="s2">&quot;terminal.integrated.profiles.linux&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;bash (login)&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&quot;-l&quot;</span>
-        <span class="p">],</span>
-        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;bash&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="install-the-remote-development-plugin">
-<h2>Install the remote development plugin<a class="headerlink" href="#install-the-remote-development-plugin" title="Permalink to this heading"></a></h2>
-<p>Run up vscode and install the remote development plugin:</p>
-<blockquote>
-<div><p>module load vscode
-code</p>
-</div></blockquote>
-<p>Inside vscode:</p>
-<blockquote>
-<div><p>Ctrl+P
-ext install ms-vscode-remote.vscode-remote-extensionpack</p>
-</div></blockquote>
-</section>
-<section id="add-container-config-to-local-repository">
-<h2>add container config to local repository<a class="headerlink" href="#add-container-config-to-local-repository" title="Permalink to this heading"></a></h2>
-<p>Finally drop the file <code class="docutils literal notranslate"><span class="pre">.devcontainer.json`</span></code> from here
-<a class="reference external" href="https://github.com/dls-controls/dev-c7/blob/main/.devcontainer.json">https://github.com/dls-controls/dev-c7/blob/main/.devcontainer.json</a>
-into the root folder of a project
-and then open that folder with VSCode. You will be prompted to reopen the project
-in a container.</p>
-<p>Now all the terminals you open in vscode will be inside the container and
-all file browsing and launchers will also be in the container.</p>
-</section>
-<section id="caveat-user-id">
-<h2>Caveat - User ID<a class="headerlink" href="#caveat-user-id" title="Permalink to this heading"></a></h2>
-<p>Unfortunately run-dev.sh uses –userns=keep-id to give you your native user id
-inside and outside of the container. With VSCode integration this starts the
-container OK but fails when VSCode tries to exec a service in the container.
-Therefore we drop this option in .devcontainer.json and you will run as root
-inside the VSCode terminals.</p>
-<p>Running as root has minimal side affects, any interaction
-with host filesystems will use your own ID (because podman runs in your user
-ID). SSH keys will still work but to SSH to another machine you will need
-to use the following:
-<code class="docutils literal notranslate"><span class="pre">`bash</span>
-<span class="pre">ssh</span> <span class="pre">your_fed_id&#64;machine_name</span>
-<span class="pre">`</span></code></p>
-</section>
-<section id="advanced-enable-the-docker-plugin">
-<h2>Advanced - enable the docker plugin<a class="headerlink" href="#advanced-enable-the-docker-plugin" title="Permalink to this heading"></a></h2>
-<p>The docker plugin allows you to manage containers from the explorer in
-vscode. This requires access to the docker socket which podman does not have.
-However you can make podman look like docker with the following steps.</p>
-<p>The docker plugin is here <a class="reference external" href="https://code.visualstudio.com/docs/containers/overview">https://code.visualstudio.com/docs/containers/overview</a></p>
-<section id="install-podman-docker">
-<h3>install podman-docker<a class="headerlink" href="#install-podman-docker" title="Permalink to this heading"></a></h3>
-<p>Execute these commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">podman</span><span class="o">-</span><span class="n">docker</span>
-<span class="n">systemctl</span> <span class="o">--</span><span class="n">user</span> <span class="n">enable</span> <span class="o">--</span><span class="n">now</span> <span class="n">podman</span><span class="o">.</span><span class="n">socket</span>
-</pre></div>
-</div>
-</section>
-<section id="edit-user-settings">
-<h3>edit user settings<a class="headerlink" href="#edit-user-settings" title="Permalink to this heading"></a></h3>
-<p>Add the following to  /home/[YOUR USER NAME]/.config/Code/User/settings.json:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;docker.dockerodeOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;socketPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/run/user/[YOUR USER ID]/podman/podman.sock&quot;</span>
-<span class="p">},</span>
-</pre></div>
-</div>
-<p>(you can find your uid with the <a class="reference external" href="https://docs.python.org/3/library/functions.html#id" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">id</span></code></a> command)</p>
-</section>
+<p>See the notes here:
+<a class="reference external" href="https://github.com/dls-controls/dev-c7/blob/dev/.devcontainer">https://github.com/dls-controls/dev-c7/blob/dev/.devcontainer</a></p>
 </section>
 </section>
 
@@ -205,7 +142,7 @@ However you can make podman look like docker with the following steps.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="start.html" class="btn btn-neutral float-left" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../how-to/deriving.html" class="btn btn-neutral float-right" title="Derive your own container image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../how-to/containers.html" class="btn btn-neutral float-right" title="Managing Containers and Images on a Workstation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -230,7 +167,7 @@ However you can make podman look like docker with the following steps.</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc1-2-g41611eb
+      2.0.0-rc1-8-g59d4b75
 
       <span class="fa fa-caret-down"></span>
     </span>

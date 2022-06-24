@@ -1,5 +1,5 @@
-Purpose of dev-c7 Container
-===========================
+Purpose of the dev-c7 Container
+===============================
 
 This project allows controls developers to continue to work on IOCs and tools
 built for RHEL7, while at the same time allowing the DLS wide upgrade to

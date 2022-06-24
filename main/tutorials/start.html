@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quick Start &mdash; dev-c7 2.0.0-rc1-2-g41611eb
+  <title>Quick Start &mdash; dev-c7 2.0.0-rc1-8-g59d4b75
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc1-2-g41611eb
+                2.0.0-rc1-8-g59d4b75
 
               </div>
 <div role="search">
@@ -50,6 +50,8 @@
               <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#startup-script-run-dev-c7-sh">Startup Script run-dev-c7.sh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deleting-the-container">Deleting the container</a></li>
 </ul>
@@ -58,14 +60,15 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../how-to/deriving.html">Derive your own container image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/containers.html">Managing Containers and Images on a Workstation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how-to/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/deriving.html">Derive your own container image</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../explanations/how_it_works.html">How the dev-c7 container works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/how_it_works.html">How the dev-c7 Container Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../explanations/differences.html">RHEL7 native vs dev-c7</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../explanations/why_dev_c7.html">Purpose of dev-c7 Container</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/why_dev_c7.html">Purpose of the dev-c7 Container</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -99,11 +102,22 @@
              
   <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading"></a></h1>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
 <p>First, if you have never used containers at DLS before, then you must
 do an initial podman setup:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">dls_sw</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">setup</span><span class="o">-</span><span class="n">podman</span><span class="o">/</span><span class="n">setup</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
+<p>Second, in order to support secondary groups we require the crun container
+runtime. Again this should be installed by default but early adopters
+will need:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">crun</span>
+</pre></div>
+</div>
+</section>
+<section id="startup-script-run-dev-c7-sh">
+<h2>Startup Script run-dev-c7.sh<a class="headerlink" href="#startup-script-run-dev-c7-sh" title="Permalink to this heading"></a></h2>
 <p>Next, copy the startup script to your local bin directory and make it
 executable:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>curl https://raw.githubusercontent.com/dls-controls/dev-c7/main/run-dev-c7.sh -o $HOME/bin/run-dev-c7.sh
@@ -124,6 +138,7 @@ is cached.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">h</span>
 </pre></div>
 </div>
+</section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>At a dev-c7 prompt you can work normally as if you were sitting at a RHEL7
@@ -148,16 +163,20 @@ to implement see <a class="reference internal" href="../how-to/deriving.html#der
 <h2>Deleting the container<a class="headerlink" href="#deleting-the-container" title="Permalink to this heading"></a></h2>
 <p>To reset the container back to its original state perform the following
 command. This will stop the container and delete it’s state. All
-dev-c7 prompts you have open will be closed.:</p>
+dev-c7 prompts you have open will be closed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">podman</span> <span class="n">rm</span> <span class="o">-</span><span class="n">ft0</span> <span class="n">dev</span><span class="o">-</span><span class="n">c7</span>
 </pre></div>
 </div>
+<p>When you next launch the container will be started with its file system
+initialized back to the default state specified in the image at
+ghcr.io/dls-controls/dev-c7:latest.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Any changes you have made to the container itself will be lost when you
 execute the above command. This includes
 any <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">install</span></code> and any changes to the operating system files.
-See <a class="reference internal" href="../explanations/how_it_works.html"><span class="doc">How the dev-c7 container works</span></a> for more detail.</p>
+See <a class="reference internal" href="../explanations/how_it_works.html"><span class="doc">How the dev-c7 Container Works</span></a> for more detail. To permanently
+persist changes see <a class="reference internal" href="../how-to/deriving.html#deriving"><span class="std std-ref">Derive your own container image</span></a>.</p>
 </div>
 </section>
 </section>
@@ -192,7 +211,7 @@ See <a class="reference internal" href="../explanations/how_it_works.html"><span
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc1-2-g41611eb
+      2.0.0-rc1-8-g59d4b75
 
       <span class="fa fa-caret-down"></span>
     </span>

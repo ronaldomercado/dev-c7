@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DLS RHEL7 in a Box Developer Container &mdash; dev-c7 2.0.0-rc1-2-g41611eb
+  <title>DLS RHEL7 in a Box Developer Container &mdash; dev-c7 2.0.0-rc1-8-g59d4b75
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -35,7 +35,7 @@
             <img src="_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc1-2-g41611eb
+                2.0.0-rc1-8-g59d4b75
 
               </div>
 <div role="search">
@@ -53,14 +53,15 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="how-to/deriving.html">Derive your own container image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/containers.html">Managing Containers and Images on a Workstation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how-to/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/deriving.html">Derive your own container image</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="explanations/how_it_works.html">How the dev-c7 container works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/how_it_works.html">How the dev-c7 Container Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="explanations/differences.html">RHEL7 native vs dev-c7</a></li>
-<li class="toctree-l1"><a class="reference internal" href="explanations/why_dev_c7.html">Purpose of dev-c7 Container</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/why_dev_c7.html">Purpose of the dev-c7 Container</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -130,20 +131,14 @@ side-bar.</p>
 <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/start.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/start.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/start.html#startup-script-run-dev-c7-sh">Startup Script run-dev-c7.sh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/start.html#usage">Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/start.html#deleting-the-container">Deleting the container</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/vscode.html">VSCode integration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#convince-vscode-to-use-podman">Convince vscode to use podman</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#install-the-remote-development-plugin">Install the remote development plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#add-container-config-to-local-repository">add container config to local repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#caveat-user-id">Caveat - User ID</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#advanced-enable-the-docker-plugin">Advanced - enable the docker plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/vscode.html#install-podman-docker">install podman-docker</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/vscode.html#edit-user-settings">edit user settings</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#python-development">Python Development</a></li>
 </ul>
 </li>
 </ul>
@@ -155,13 +150,20 @@ side-bar.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="how-to/deriving.html">Derive your own container image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="how-to/troubleshooting.html">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#edm-fonts">EDM Fonts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#profile-mismatch">Profile mismatch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#insufficient-uids-gids">Insufficient UIDs/GIDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/containers.html">Managing Containers and Images on a Workstation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-to/containers.html#intro">Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/containers.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/containers.html#cleaning-up-space">Cleaning Up Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/containers.html#defining-a-container-image">Defining a Container Image</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#edm-fonts">EDM Fonts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#insufficient-uids-gids">Insufficient UIDs/GIDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#profile-mismatch">Profile mismatch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/deriving.html">Derive your own container image</a></li>
 </ul>
 </div>
 </section>
@@ -171,15 +173,21 @@ side-bar.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="explanations/how_it_works.html">How the dev-c7 container works</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="explanations/how_it_works.html">How the dev-c7 Container Works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#podman">Podman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#containers">Containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#container-lifetime">Container lifetime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#file-systems">File Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#user-profile">User Profile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="explanations/how_it_works.html#todo">TODO</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="explanations/differences.html">RHEL7 native vs dev-c7</a></li>
-<li class="toctree-l1"><a class="reference internal" href="explanations/why_dev_c7.html">Purpose of dev-c7 Container</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/differences.html">RHEL7 native vs dev-c7</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="explanations/differences.html#centos-vs-rhel7">Centos vs RHEL7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/differences.html#user-ids">User IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explanations/differences.html#no-services">No Services</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="explanations/why_dev_c7.html">Purpose of the dev-c7 Container</a></li>
 </ul>
 </div>
 </section>
@@ -190,16 +198,13 @@ side-bar.</p>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="reference/contributing.html">Contributing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#running-the-tests">Running the tests</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="reference/contributing.html#to-run-in-a-container">To run in a container</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/contributing.html#to-run-locally">To run locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#testing">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/contributing.html#adding-features-to-the-container-image">Adding Features to the Container Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/contributing.html#make-container-image">Make Container Image</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#code-styling">Code Styling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#release-process">Release Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#checking-dependencies">Checking Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/contributing.html#updating-the-tools">Updating the tools</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dls-controls/dev-c7/releases">Releases</a></li>
@@ -242,7 +247,7 @@ side-bar.</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc1-2-g41611eb
+      2.0.0-rc1-8-g59d4b75
 
       <span class="fa fa-caret-down"></span>
     </span>
