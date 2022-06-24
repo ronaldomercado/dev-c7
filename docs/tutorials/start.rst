@@ -1,14 +1,19 @@
 Quick Start
 ===========
 
-Setup Podman
-------------
+Setup
+-----
 
 First, if you have never used containers at DLS before, then you must 
 do an initial podman setup::
 
     /dls_sw/apps/setup-podman/setup.sh
 
+Second, in order to support secondary groups we require the crun container 
+runtime. Again this should be installed by default but early adopters
+will need::
+
+    sudo yum install crun
 
 Startup Script run-dev-c7.sh
 ----------------------------
