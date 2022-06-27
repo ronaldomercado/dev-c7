@@ -9,6 +9,7 @@ version=latest
 hostname=dev-c7
 changed=false
 pull=false
+rhel=8
 
 while getopts "phs:i:v:" arg; do
     case $arg in
@@ -53,7 +54,17 @@ if [[ -e /etc/centos-release ]] ; then
     exit 1
 fi
 
-environ="-e DISPLAY -e HOME"
+if [[ $(podman version -f {{.Version}}) == 1.* ]] ; then
+    echo "WARNING: this is a RHEL7 machine - EXPERIMENTAL SUPPORT ONLY"
+    echo "
+WARNING: You will run as root in the container and will not be able to 
+use group permissions
+"
+    rhel=7
+fi 
+
+
+environ="-e DISPLAY -e HOME -e USER"
 volumes=" 
     -v /dls_sw/prod:/dls_sw/prod
     -v /dls_sw/work:/dls_sw/work
@@ -63,15 +74,18 @@ volumes="
     -v /dls_sw/etc:/dls_sw/etc
     -v /scratch:/scratch
     -v /home:/home
-    -v /tmp:/tmp
     -v /dls/science/users/:/dls/science/users/
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
 opts="--net=host --hostname ${hostname}"
+
 # the identity settings enable secondary groups in the container
-identity="--security-opt=label=type:container_runtime_t --userns=keep-id \
-          --annotation run.oci.keep_original_groups=1"
+if [[ ${rhel} == 8 ]] ; then
+    identity="--security-opt=label=type:container_runtime_t --userns=keep-id
+              --annotation run.oci.keep_original_groups=1"
+    volumes="${volumes} -v /tmp:/tmp"
+fi
 
 # this runtime is also required for secondary groups
 if which crun &> /dev/null ; then 
