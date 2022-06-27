@@ -8,9 +8,14 @@ image=ghcr.io/dls-controls/dev-c7
 version=latest
 hostname=dev-c7
 changed=
+pull=
 
-while getopts "hs:i:v:" arg; do
+while getopts "phs:i:v:" arg; do
     case $arg in
+    p)  
+        pull=true
+        changed=true
+        ;;
     s)
         hostname=$OPTARG
         changed=true
@@ -31,7 +36,8 @@ Launches a developer container that simulates a DLS RHEL7 workstation.
 
 Options:
 
-    -h              show this help       
+    -h              show this help    
+    -p              pull an updated version of the image first   
     -i image        specify the container image (default: "${image}")
     -v version      specify the image version (default: "${version}")
     -s host         set a hostname for your container (default: ${hostname})
@@ -98,6 +104,11 @@ elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     echo 'restarting stopped dev-c7 container ...'
     podman start ${container_name}
 else
+    # check for updates if requested
+    if [[ -n ${pull} ]]; then
+        podman pull ${image}:${version}; echo
+    fi
+
     # create a new background container making process 1 be 'sleep'
     # prior to sleep we update the default shell to be bash
     # this is because podman adds a user in etc/passwd but fails to honor

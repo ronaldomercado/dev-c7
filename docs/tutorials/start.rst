@@ -37,6 +37,13 @@ See optional parameters to the startup script with::
 
     run-dev-c7.sh -h
 
+The default behaviour is that ``run-dev-c7.sh`` will use the latest version
+of the container image that is cached locally. If there has been an update
+to the image registry and you would like to pull that then use ``-p``:
+
+    run-dev-c7.sh -p
+
+
 Usage
 -----
 
