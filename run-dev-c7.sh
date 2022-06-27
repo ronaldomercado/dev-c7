@@ -7,10 +7,15 @@
 image=ghcr.io/dls-controls/dev-c7
 version=latest
 hostname=dev-c7
-changed=
+changed=false
+pull=false
 
-while getopts "hs:i:v:" arg; do
+while getopts "phs:i:v:" arg; do
     case $arg in
+    p)  
+        pull=true
+        changed=true
+        ;;
     s)
         hostname=$OPTARG
         changed=true
@@ -31,7 +36,8 @@ Launches a developer container that simulates a DLS RHEL7 workstation.
 
 Options:
 
-    -h              show this help       
+    -h              show this help    
+    -p              pull an updated version of the image first   
     -i image        specify the container image (default: "${image}")
     -v version      specify the image version (default: "${version}")
     -s host         set a hostname for your container (default: ${hostname})
@@ -74,7 +80,7 @@ if which crun &> /dev/null ; then
 fi
 
 # -l loads profile and bashrc
-command='/bin/bash -l'
+command="/bin/bash -l"
 
 container_name=dev-c7
 
@@ -87,7 +93,7 @@ container_name=dev-c7
 
 if [[ -n $(podman ps -q -f name=${container_name}) ]]; then
     # container already running so no prep required   
-    if [[ -n ${changed} ]] ; then
+    if ${changed} ; then
         echo "ERROR: cannot change hostname or image on a running container."
         echo "Delete the container with 'podman rm -ft0 dev-c7' and retry."
         exit 1
@@ -98,6 +104,11 @@ elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     echo 'restarting stopped dev-c7 container ...'
     podman start ${container_name}
 else
+    # check for updates if requested
+    if ${pull} ; then
+        podman pull ${image}:${version}; echo
+    fi
+
     # create a new background container making process 1 be 'sleep'
     # prior to sleep we update the default shell to be bash
     # this is because podman adds a user in etc/passwd but fails to honor
@@ -109,4 +120,4 @@ else
 fi
 # Execute a shell in the container - this allows multiple shells and avoids 
 # using process 1 so users can exit the shell without killing the container
-podman exec -it ${container_name} ${command}
+podman exec -itw $(pwd) ${container_name} ${command}
