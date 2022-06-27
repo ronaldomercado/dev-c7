@@ -25,12 +25,12 @@ User IDs
 
 Inside of the container there are only two interactive users. Your own user
 and root. ``run-dev-c7.sh`` uses ``--userns=keep-id`` so that your same user id
-id used inside and outside of the container.
+is used inside and outside of the container.
 
 Hence the container is able to see the file ownership of mounted file systems
 as long as they belong to root or to you. 
 
-However no other users are known to it and when listing the contents of 
+No other users are known to it and when listing the contents of 
 a shared directory any files that have unknown user group membership will
 show up as uid or gid 65534.
 
@@ -60,7 +60,11 @@ No Services
 -----------
 
 By default a container runs a single process (of id 1) and terminates when 
-that process terminates. ``run-dev-c7.sh`` launches a background. Although you 
+that process terminates. ``run-dev-c7.sh`` launches a background process
+that does nothing as process 1 and
+then executes any number of interactive shells inside of it. 
+
+Although you 
 have the filesystem of a Centos 7 workstation inside the 
 container, by design it is not an entire virtual machine. 
 

@@ -6,7 +6,7 @@
 
 image=ghcr.io/dls-controls/dev-c7
 version=latest
-hostname=
+hostname=dev-c7
 changed=
 
 while getopts "hs:i:v:" arg; do
@@ -24,18 +24,18 @@ while getopts "hs:i:v:" arg; do
         changed=true
         ;;
     *)
-        echo "usage:
+        echo "
+usage: run-dev.sh [options]
 
-        run-dev.sh [options]
+Launches a developer container that simulates a DLS RHEL7 workstation.
 
-        Launches a developer container that simulates a DLS RHEL7 workstation.
+Options:
 
-        options:
-            -h:          show this help       
-            -i  image   ("${image}")
-            -v:  version ("${version}")
-            -s:  set a hostname for your container (dev-c7)
-        "
+    -h              show this help       
+    -i image        specify the container image (default: "${image}")
+    -v version      specify the image version (default: "${version}")
+    -s host         set a hostname for your container (default: ${hostname})
+"
         exit 0
         ;;
     esac
@@ -62,7 +62,7 @@ volumes="
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
-opts="--net=host --hostname ${hostname:-dev-c7}"
+opts="--net=host --hostname ${hostname}"
 # the identity settings enable secondary groups in the container
 identity="--security-opt=label=type:container_runtime_t --userns=keep-id \
           --annotation run.oci.keep_original_groups=1"
