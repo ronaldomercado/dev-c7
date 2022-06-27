@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quick Start &mdash; dev-c7 2.0.0-rc2-8-g41508a7
+  <title>Quick Start &mdash; dev-c7 2.0.0-rc2-10-gc047c93
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="VSCode integration" href="vscode.html" />
+    <link rel="next" title="More Features" href="continue.html" />
     <link rel="prev" title="DLS RHEL7 in a Box Developer Container" href="../index.html" /> 
 </head>
 
@@ -36,7 +36,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc2-8-g41508a7
+                2.0.0-rc2-10-gc047c93
 
               </div>
 <div role="search">
@@ -52,10 +52,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#startup-script-run-dev-c7-sh">Startup Script run-dev-c7.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#deleting-the-container">Deleting the container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-work">How to Work</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="continue.html">More Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vscode.html">VSCode integration</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
@@ -135,25 +135,16 @@ chmod +x $HOME/bin/run-dev-c7.sh
 will be a 30 second delay while the filesystem user id namespace mapping
 is cached.</p>
 </div>
-<p>See optional parameters to the startup script with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">h</span>
-</pre></div>
-</div>
-<p>The default behaviour is that <code class="docutils literal notranslate"><span class="pre">run-dev-c7.sh</span></code> will use the latest version
-of the container image that is cached locally. If there has been an update
-to the image registry and you would like to pull that then use <code class="docutils literal notranslate"><span class="pre">-p</span></code>:</p>
-<blockquote>
-<div><p>run-dev-c7.sh -p</p>
-</div></blockquote>
 </section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<section id="how-to-work">
+<h2>How to Work<a class="headerlink" href="#how-to-work" title="Permalink to this heading"></a></h2>
 <p>At a dev-c7 prompt you can work normally as if you were sitting at a RHEL7
 workstation. Everything should work as before although there are a few
 differences, see
 <a class="reference internal" href="../explanations/differences.html"><span class="doc">RHEL7 native vs dev-c7</span></a>.</p>
 <p>If you find anything that does not work or have suggestions for improvement,
-please report it <a class="reference external" href="linkURL">HERE</a>.</p>
+please report it
+<a class="reference external" href="https://github.com/dls-controls/dev-c7/issues">On GitHub Issues</a>.</p>
 <ul class="simple">
 <li><p>You can launch multiple instances of dev-c7 and they will share the
 same container.</p></li>
@@ -164,42 +155,10 @@ available</p></li>
 <li><p>You can run GUI apps as normal.</p></li>
 <li><p>You have full sudo rights and can install anything you need into the
 container with <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">install</span></code></p></li>
+<li><p>Do NOT run vscode inside the container. Instead run it normally and
+feel free to launch dev-c7 inside of its integrated terminals to do
+compilation, testing.</p></li>
 </ul>
-<p>Note that the container should be considered ephemeral. The system partition
-can be changed but note:</p>
-<ul class="simple">
-<li><p>Changes inside the container such as <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">install</span></code> will be persisted,
-but only until it is deleted.</p></li>
-<li><p>If you have permanent additions to the container that you would like
-to implement, see <a class="reference internal" href="../how-to/deriving.html#deriving"><span class="std std-ref">Derive your own container image</span></a></p></li>
-</ul>
-</section>
-<section id="deleting-the-container">
-<span id="deleting"></span><h2>Deleting the container<a class="headerlink" href="#deleting-the-container" title="Permalink to this heading"></a></h2>
-<p>To reset the container back to its original state we ask podman
-to stop it and delete it.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Everything running in your container will be terminated when you
-do this. Make sure you have saved your work and closed all
-applications.</p>
-</div>
-<p>The following will stop the container and delete it’s state. All
-dev-c7 shells and any GUI apps launched from them will be closed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">podman</span> <span class="n">rm</span> <span class="o">-</span><span class="n">ft0</span> <span class="n">dev</span><span class="o">-</span><span class="n">c7</span>
-</pre></div>
-</div>
-<p>When you next launch the container, it will be started with its file system
-initialized back to the default state specified in the image at
-ghcr.io/dls-controls/dev-c7:latest.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Any changes you have made to the container itself will be lost when you
-execute the above command. This includes
-any <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">install</span></code> and any changes to the operating system files.
-See <a class="reference internal" href="../explanations/how_it_works.html"><span class="doc">How the dev-c7 Container Works</span></a> for more detail. To permanently
-persist changes see <a class="reference internal" href="../how-to/deriving.html#deriving"><span class="std std-ref">Derive your own container image</span></a>.</p>
-</div>
 </section>
 </section>
 
@@ -208,7 +167,7 @@ persist changes see <a class="reference internal" href="../how-to/deriving.html#
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="DLS RHEL7 in a Box Developer Container" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="vscode.html" class="btn btn-neutral float-right" title="VSCode integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="continue.html" class="btn btn-neutral float-right" title="More Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -233,7 +192,7 @@ persist changes see <a class="reference internal" href="../how-to/deriving.html#
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc2-8-g41508a7
+      2.0.0-rc2-10-gc047c93
 
       <span class="fa fa-caret-down"></span>
     </span>

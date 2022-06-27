@@ -9,4 +9,5 @@ Tutorials for installation, library and commandline usage. New users start here.
     :caption: Tutorials
 
     tutorials/start
+    tutorials/continue
     tutorials/vscode
