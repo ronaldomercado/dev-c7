@@ -13,4 +13,4 @@ if [[ ! -d "${root}/.venv" ]] ; then
 fi
 
 source "${root}/.venv/bin/activate"
-sphinx-build -EWT --keep-going docs ${root}/build/html
+sphinx-build -EWT --keep-going docs ${root}/build/html "${@}"

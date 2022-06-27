@@ -12,6 +12,7 @@ DLS Controls RHEL7 developer environment on a RHEL8 Workstation.
 Source code    https://github.com/dls-controls/dev-c7
 Documentation  https://dls-controls.github.io/dev-c7
 Releases       https://github.com/dls-controls/dev-c7/releases
+Images         https://ghcr.io/dls-controls/dev-c7
 ============== ==============================================================
 
 Quick Start
