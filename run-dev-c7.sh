@@ -7,8 +7,8 @@
 image=ghcr.io/dls-controls/dev-c7
 version=latest
 hostname=dev-c7
-changed=
-pull=
+changed=false
+pull=false
 
 while getopts "phs:i:v:" arg; do
     case $arg in
@@ -93,7 +93,7 @@ container_name=dev-c7
 
 if [[ -n $(podman ps -q -f name=${container_name}) ]]; then
     # container already running so no prep required   
-    if [[ -n ${changed} ]] ; then
+    if ${changed} ; then
         echo "ERROR: cannot change hostname or image on a running container."
         echo "Delete the container with 'podman rm -ft0 dev-c7' and retry."
         exit 1
@@ -105,7 +105,7 @@ elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     podman start ${container_name}
 else
     # check for updates if requested
-    if [[ -n ${pull} ]]; then
+    if ${pull} ; then
         podman pull ${image}:${version}; echo
     fi
 
