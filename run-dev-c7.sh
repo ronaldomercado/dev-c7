@@ -30,7 +30,7 @@ while getopts "phs:i:v:" arg; do
         ;;
     *)
         echo "
-usage: run-dev.sh [options]
+usage: run-dev-c7.sh [options]
 
 Launches a developer container that simulates a DLS RHEL7 workstation.
 
