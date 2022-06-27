@@ -80,7 +80,7 @@ if which crun &> /dev/null ; then
 fi
 
 # -l loads profile and bashrc
-command='/bin/bash -l'
+command="/bin/bash -l"
 
 container_name=dev-c7
 
@@ -120,4 +120,4 @@ else
 fi
 # Execute a shell in the container - this allows multiple shells and avoids 
 # using process 1 so users can exit the shell without killing the container
-podman exec -it ${container_name} ${command}
+podman exec -itw $(pwd) ${container_name} ${command}
