@@ -42,7 +42,8 @@ RUN yum -y install wget  && \
     make configure && \
     ./configure --prefix=/usr && \
     make && \
-    make install
+    make install && \
+    make clean
 
 # allow all users inside the container to sudo
 RUN yum -y install sudo
