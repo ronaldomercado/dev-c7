@@ -11,13 +11,14 @@ https://confluence.diamond.ac.uk/x/NY8DCQ
 Previously the task of upgrading from RHEL6 to RHEL7 proved to be quite
 complicated and took several years to finalize.
 
-Hence this project a stopgap so that we can use effort to work replacing our
+Hence this project is a stopgap so that we can use effort to work on replacing 
+our
 tools and deployment process with one based on containers and Kubernetes. 
 Some details of the epics-containers approach are documented here
-https://github.com/dls-controls.
+https://github.com/epics-containers.
 
 With the new approach under development it would be a waste of effort to
 port our legacy toolchain to RHEL8 only to replace it shortly afterward.
 The container based approach decouples the tools and IOCs from the
-host operating system so any future OS upgrades should be far more 
-smooth.
+host operating system so any future OS upgrades should be far 
+smoother.

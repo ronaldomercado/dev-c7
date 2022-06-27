@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Managing Containers and Images on a Workstation &mdash; dev-c7 2.0.0-rc2-2-g5bab767
+  <title>Managing Containers and Images on a Workstation &mdash; dev-c7 2.0.0-rc2-4-g9124a74
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc2-2-g5bab767
+                2.0.0-rc2-4-g9124a74
 
               </div>
 <div role="search">
@@ -55,12 +55,12 @@
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Managing Containers and Images on a Workstation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#intro">Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#definitions">Definitions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#monitoring">Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cleaning-up-space">Cleaning Up Space</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#defining-a-container-image">Defining a Container Image</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#defining-a-container-image">Defining a Container Image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deriving.html">Derive your own container image</a></li>
 </ul>
@@ -102,8 +102,8 @@
              
   <section id="managing-containers-and-images-on-a-workstation">
 <h1>Managing Containers and Images on a Workstation<a class="headerlink" href="#managing-containers-and-images-on-a-workstation" title="Permalink to this heading"></a></h1>
-<section id="intro">
-<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this heading"></a></h2>
+<section id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading"></a></h2>
 <p><strong>Images</strong> are snapshots of a filesystem used to bootstrap a container.</p>
 <p><strong>Containers</strong> are isolated execution environments with their file system based
 upon an Image.</p>
@@ -146,14 +146,34 @@ are short on space you can use the following.</p>
 </pre></div>
 </div>
 </section>
+</section>
 <section id="defining-a-container-image">
-<span id="dockerfile"></span><h2>Defining a Container Image<a class="headerlink" href="#defining-a-container-image" title="Permalink to this heading"></a></h2>
-<p>A container image is defined in terms of a Dockerfile. This simply defines
-a base image with the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> command and then executes a series of commands
-each of which adds a layer of changes to the filesystem.</p>
-<p>The majority of the Dockerfile for <code class="docutils literal notranslate"><span class="pre">dev-c7</span></code> is using yum install to get
-packages installed into the OS.</p>
-<p>TODO - discuss more detail and suggest what contributors might add.</p>
+<span id="dockerfile"></span><h1>Defining a Container Image<a class="headerlink" href="#defining-a-container-image" title="Permalink to this heading"></a></h1>
+<p>The dev-c7 container image is built from the container context folder
+<code class="docutils literal notranslate"><span class="pre">dev-c7/docker</span></code>.
+The context contains a Dockerfile which details the steps to build the
+container image.</p>
+<p>To experiment with making additions to the dev-c7 project, first clone
+the project and do a test build of the container:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dls</span><span class="o">-</span><span class="n">controls</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">html</span>
+<span class="n">cd</span> <span class="n">dev</span><span class="o">-</span><span class="n">c7</span>
+<span class="o">./</span><span class="n">build</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">build-dev-c7.sh</span></code> will create a container image with the tag
+<code class="docutils literal notranslate"><span class="pre">ghcr.io/dls-controls/dev-c7</span></code>. This is the same tag that <code class="docutils literal notranslate"><span class="pre">run-dev-c7.sh</span></code>
+uses so it will launch a container based on your newly built image.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will likely already have a dev-c7 container running and you must delete
+that before your new one will launch. Otherwise the launch script will
+just open a new bash session in the existing container.
+To do this see <a class="reference internal" href="../tutorials/start.html#deleting"><span class="std std-ref">Deleting the container</span></a>.</p>
+</div>
+<p>Now you are ready to make any changes you wish to the Dockerfile and add
+any additional files to the context (i.e. in the <code class="docutils literal notranslate"><span class="pre">dev-c7/docker</span></code> folder).</p>
+<p>Below is the current Dockerfile, read on for an explanation of the
+commands used.</p>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># Dockerfile for getting DLS RHEL7 dev environment working in a container</span>
 <span class="c"># hosted on RHEL8</span>
 <span class="c">#</span>
@@ -198,7 +218,8 @@ packages installed into the OS.</p>
     make configure <span class="o">&amp;&amp;</span> <span class="se">\</span>
     ./configure --prefix<span class="o">=</span>/usr <span class="o">&amp;&amp;</span> <span class="se">\</span>
     make <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    make install
+    make install <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    make clean
 
 <span class="c"># allow all users inside the container to sudo</span>
 <span class="k">RUN</span><span class="w"> </span>yum -y install sudo
@@ -215,7 +236,33 @@ packages installed into the OS.</p>
 <span class="k">RUN</span><span class="w"> </span>yum reinstall -y glibc-common
 </pre></div>
 </div>
-</section>
+<p>The base image is selected with the <code class="docutils literal notranslate"><span class="pre">FROM</span></code> command this defines what the
+container file system looks like initially. Every command in the Dockerfile
+then adds a layer of change to the container image.</p>
+<p>The majority of the Dockerfile for <code class="docutils literal notranslate"><span class="pre">dev-c7</span></code> is using yum install to get
+packages installed into the OS. Yum is executed via the <code class="docutils literal notranslate"><span class="pre">RUN</span></code> command.
+Note that the <code class="docutils literal notranslate"><span class="pre">RUN</span></code> command takes a single shell command line input.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is
+common in Dockerfiles to use <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span> <span class="pre">\</span></code> to string multiple commands together
+in a single <code class="docutils literal notranslate"><span class="pre">RUN</span></code>. The reason to do this is to minimize the number
+of layers
+in the container image. In particular, if you want to clean up temporary
+files, it must be done in the same layer they were created or it will not
+reduce the size of the resulting image (because there is a layer with the
+temp files and then another layer that removes them).</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">RUN</span></code> command may execute any command that is available inside the
+container. For example the above uses a single <code class="docutils literal notranslate"><span class="pre">RUN</span></code> to get the source for
+a new version of git and compile it.</p>
+<p>Another command in this Dockerfile is <code class="docutils literal notranslate"><span class="pre">ENV</span></code> which simply sets an environment
+variable for the processes the container launches.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">COPY</span></code> command allows you to supply files from the context
+(<code class="docutils literal notranslate"><span class="pre">dev-c7/docker</span></code> folder in this case).
+Note that the path / is the root of the context. You can only
+copy files from inside the context, thus the context folder holds the entire
+definition of the image generated.</p>
 </section>
 
 
@@ -248,7 +295,7 @@ packages installed into the OS.</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc2-2-g5bab767
+      2.0.0-rc2-4-g9124a74
 
       <span class="fa fa-caret-down"></span>
     </span>
