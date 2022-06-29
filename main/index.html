@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DLS RHEL7 in a Box Developer Container &mdash; dev-c7 2.0.0-rc2-10-gc047c93
+  <title>DLS RHEL7 in a Box Developer Container &mdash; dev-c7 2.0.0-rc3-4-g5a337bb
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -35,7 +35,7 @@
             <img src="_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc2-10-gc047c93
+                2.0.0-rc3-4-g5a337bb
 
               </div>
 <div role="search">
@@ -50,7 +50,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/start.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/continue.html">More Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/vscode.html">VSCode integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/vscode.html">VSCode Integration</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
@@ -148,8 +148,18 @@ side-bar.</p>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/continue.html#deleting-the-container">Deleting the container</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/vscode.html">VSCode integration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#python-development">Python Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/vscode.html">VSCode Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#initial-setup">Initial Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vscode.html#install-remote-development-plugin">Install remote development plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vscode.html#update-vscode-user-settings">Update VSCode User settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#how-to-use">How to Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#container-lifetime">Container Lifetime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/vscode.html#known-issues">Known Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/vscode.html#first-integrated-terminal">First integrated terminal</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -170,8 +180,9 @@ side-bar.</p>
 <li class="toctree-l1"><a class="reference internal" href="how-to/containers.html#defining-a-container-image">Defining a Container Image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how-to/troubleshooting.html">Troubleshooting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#edm-fonts">EDM Fonts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#vscode-container-removal">VSCode Container Removal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#insufficient-uids-gids">Insufficient UIDs/GIDs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#profile-mismatch">Profile mismatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to/troubleshooting.html#first-terminal-in-vscode">First Terminal in VSCode</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="how-to/deriving.html">Derive your own container image</a></li>
@@ -258,7 +269,7 @@ side-bar.</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc2-10-gc047c93
+      2.0.0-rc3-4-g5a337bb
 
       <span class="fa fa-caret-down"></span>
     </span>

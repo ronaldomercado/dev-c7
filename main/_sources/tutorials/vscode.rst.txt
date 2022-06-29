@@ -1,43 +1,142 @@
-VSCode integration
+VSCode Integration
 ==================
 
-.. note::
-
-    This feature has been removed from ``dev-c7``.
-    Unfortunately vscode has recently restricted devcontainers to require that 
-    they are derived from a Debian based image. For this reason the dev-c7
-    container is not compatible as it is required to be based on Centos 7. 
 
 VSCode has beautiful integration for developing in containers. See here
 https://code.visualstudio.com/docs/remote/containers for a detailed 
 description of this feature. 
 
-Although the tight integration is no longer supported for ``dev-c7`` it is still 
-possible to use VSCode and start the ``dev-c7`` container in each of its 
-integrated terminals.
+When running VSCode with a developer container:
 
-If you work in this way, you will not be able to directly use the 
-vscode C++ debugger or launch unit tests from the test explorer. 
-However, approaches to restore
-these features are under investigation!
+- All integrated terminals run inside the container
+- The test explorer will run tests inside the container
+- File dialogs will browse the container's file system
+- Python and C++ debugging are available for processes running in the 
+  container
 
 
-Python Development
-------------------
+Initial Setup
+-------------
 
-I have provided an **experimental** devcontainer in the repo that allows 
-developers to use the full suite of VSCode integration features for 
-developing:
+Install remote development plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- DLS Python 3 pipenv based workflow with dls-python3
-- python3-pip-skeleton based workflow with python3.10
+Run up VSCode and install the remote development plugin::
 
-Note that to make vscode devcontainers work with python requires the plugin 
-``ms-vscode-remote.vscode-remote-extensionpack`` and the
-following setting in 
-``$HOME/.config/Code/User/settings.json``::
+    module load vscode
+    code
+
+Then inside VSCode::
+    
+    Ctrl+P
+    ext install ms-VSCode-remote.VSCode-remote-extensionpack
+
+
+Update VSCode User settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add the following settings to you user configuration for VSCode in
+``$HOME/.config/Code/User/settings.json``
+
+These settings ensures that each terminal loads the bash (login) profile by 
+default. 
+Bash will then run .bash_profile and this includes essential setup for 
+DLS controls developer environment.
+
+.. code-block:: json
+
+    "terminal.integrated.defaultProfile.linux": "bash (login)",
+    "terminal.integrated.profiles.linux": {
+        "bash (login)": {
+            "args": [
+                "-l"
+            ],
+            "path": "bash"
+        }
+    }
+
+This setting tells remote container development to use podman instead of 
+docker.
+
+.. code-block:: json
 
     "remote.containers.dockerPath": "podman"
 
-See the notes here: 
-https://github.com/dls-controls/dev-c7/blob/dev/.devcontainer
+
+How to Use
+----------
+
+To use VSCode with a developer container, first add the
+``.devcontainer.json`` file to the root of your project::
+
+    cd <my project folder>
+    curl -O https://raw.githubusercontent.com/dls-controls/dev-c7/main/.devcontainer.json
+
+Then launch VSCode::
+
+    cd <my project folder>
+    module load vscode
+    code .
+    
+Click on ``Reopen in Container`` when you see a dialogue with the message
+``Folder contains a Dev Container configuration file.``
+
+That's it, you are now running a developer container and your vscode session
+is connected to it.
+
+Container Lifetime
+------------------
+
+Like the ``run-dev-c7.sh`` script, the container will be kept alive. If you 
+exit and re-enter VSCode you will be reconnected to the same container.
+
+When you run ``podman ps`` you will see the container is running and is named
+something like this::
+
+    localhost/vsc-dev-c7-914745539fc385a5fe9188693f0fa257-uid
+
+You can recreate the container from scratch by deleting it with ``podman rm``
+or you can tell VSCode to rebuild it using the remotes menu. This menu is 
+accessed by clicking the icon in the very bottom left of the VSCode window.
+
+.. figure:: ../images/button.png
+    :align: center
+
+    The Remotes Menu Button
+  
+The remotes menu option ``Rebuild Container`` will close the session, 
+rebuild the container
+and reopen the session in the new container.
+
+Note that this means that the containers used by VSCode and those used 
+by ``run-dev-c7.sh`` are distinct. So if you install something into one it will
+not be seen in the other.
+
+.. note::
+
+    VSCode will use a different container for each folder. If you would 
+    like to share a container between folders: 
+    
+    - open multiple folders in a single VSCode session by choosing "Add
+      Folder to Workspace" from the right click menu in the File Explorer
+    - choose ``File->Save Workspace As...`` and save the workspace to a 
+      file, usually in the folder that is a common root to your projects.
+    - copy ``.devcontainer.json`` file to the same folder as the workspace
+      file.
+    - go to the remotes menu (icon in bottom left of VSCode) and choose
+      ``Reopen Container``
+
+Known Issues
+------------
+
+First integrated terminal
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When a devcontainer is launched, it will usually start a single terminal that is
+NOT using the login profile. This means you won't see your usual bash prompt
+and none of the DLS development environment will be available.
+
+To work around this, close and reopen the 1st terminal
+or type::
+    
+    bash -l
