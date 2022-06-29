@@ -84,6 +84,9 @@ Click on ``Reopen in Container`` when you see a dialogue with the message
 That's it, you are now running a developer container and your vscode session
 is connected to it.
 
+If your first integrated terminal may not load the bash profile if this 
+happens just type ``bash -l``.
+
 Container Lifetime
 ------------------
 
