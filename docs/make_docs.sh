@@ -9,7 +9,7 @@ set -e
 if [[ ! -d "${root}/.venv" ]] ; then
     virtualenv "${root}/.venv" --python python3
     source "${root}/.venv/bin/activate"
-    pip install "${root}/requirements.txt"
+    pip install -r "${root}/requirements.txt"
 fi
 
 source "${root}/.venv/bin/activate"
