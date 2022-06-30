@@ -84,7 +84,7 @@ opts="--net=host --hostname ${hostname}"
 if [[ ${rhel} == 8 ]] ; then
     identity="--security-opt=label=type:container_runtime_t --userns=keep-id
               --annotation run.oci.keep_original_groups=1"
-    volumes="${volumes} -v /tmp:/tmp"
+    volumes="${volumes} -v /tmp:/tmp --privileged"
 fi
 
 # this runtime is also required for secondary groups
@@ -128,9 +128,10 @@ else
     # this is because podman adds a user in etc/passwd but fails to honor
     # /etc/adduser.conf
     echo 'creating new dev-c7 container ...'
-    podman run -d --name ${container_name} ${runtime} ${environ}\
+    set -x
+    podman run -dit --name ${container_name} ${runtime} ${environ}\
         ${identity} ${volumes} ${devices} ${opts} ${image}:${version} \
-        bash -c "sudo sed -i s#/bin/sh#/bin/bash# /etc/passwd ; sleep 1000d"
+        bash -c "sudo sed -i s#/bin/sh#/bin/bash# /etc/passwd ; bash"
 fi
 # Execute a shell in the container - this allows multiple shells and avoids 
 # using process 1 so users can exit the shell without killing the container

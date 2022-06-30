@@ -1,6 +1,19 @@
 Troubleshooting
 ===============
 
+X11 GUI Apps Problems
+---------------------
+
+If you are having issues launching a GUI app from a inside the container, try::
+
+    xauth merge ~/.Xauthority
+
+If this fails then making your container the same hostname as your real host
+should always work. From outside of the container do::
+
+    podman rm -ft0 dev-c7
+    run-dev-c7.sh -s $HOSTNAME
+
 EDM Fonts
 ---------
 
