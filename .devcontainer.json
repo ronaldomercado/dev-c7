@@ -3,9 +3,6 @@
 {
     "name": "dev-c7",
     "image": "ghcr.io/dls-controls/dev-c7",
-    // these two lines mount the local workspace folder so that the path is the same inside and outside the container.
-    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind,consistency=cached",
-    "workspaceFolder": "${localWorkspaceFolder}",
     "remoteEnv": {
         "DISPLAY": "${localEnv:DISPLAY}",
         "HOME": "${localEnv:HOME}"
