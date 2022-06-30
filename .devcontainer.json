@@ -42,7 +42,6 @@
         "source=/tmp,target=/tmp,type=bind,consistency=cached"
     ],
     "runArgs": [
-        "-h=dev-c7",
         "-v/dev/ttyS0:/dev/ttyS0",
         "--privileged",
         "--net=host",

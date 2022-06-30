@@ -6,7 +6,7 @@
 
 image=ghcr.io/dls-controls/dev-c7
 version=latest
-hostname=dev-c7
+hostname=$(hostname)
 changed=false
 pull=false
 rhel=8
