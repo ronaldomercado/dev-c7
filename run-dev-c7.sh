@@ -128,7 +128,6 @@ else
     # this is because podman adds a user in etc/passwd but fails to honor
     # /etc/adduser.conf
     echo 'creating new dev-c7 container ...'
-    set -x
     podman run -dit --name ${container_name} ${runtime} ${environ}\
         ${identity} ${volumes} ${devices} ${opts} ${image}:${version} \
         bash -c "sudo sed -i s#/bin/sh#/bin/bash# /etc/passwd ; bash"
