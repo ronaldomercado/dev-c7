@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VSCode Integration &mdash; dev-c7 2.0.0-rc3-11-g806f434
+  <title>VSCode Integration &mdash; dev-c7 2.0.0-rc3-14-g714e0d7
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Bash Prompt in dev-c7" href="../how-to/prompt.html" />
+    <link rel="next" title="Bash Prompt in dev-c7" href="prompt.html" />
     <link rel="prev" title="More Features" href="continue.html" /> 
 </head>
 
@@ -36,7 +36,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc3-11-g806f434
+                2.0.0-rc3-14-g714e0d7
 
               </div>
 <div role="search">
@@ -59,20 +59,22 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use">How to Use</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#container-lifetime">Container Lifetime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vscode-container-removal">VSCode Container Removal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#known-issues">Known Issues</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#first-integrated-terminal">First integrated terminal</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="prompt.html">Bash Prompt in dev-c7</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../how-to/prompt.html">Bash Prompt in dev-c7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how-to/containers.html">Managing Containers and Images on a Workstation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how-to/containers.html#defining-a-container-image">Defining a Container Image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how-to/troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how-to/deriving.html">Derive your own container image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-to/podman.html">Updating Podman Settings</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
@@ -180,10 +182,9 @@ docker.</p>
 </div>
 <p>Click on <code class="docutils literal notranslate"><span class="pre">Reopen</span> <span class="pre">in</span> <span class="pre">Container</span></code> when you see a dialogue with the message
 <code class="docutils literal notranslate"><span class="pre">Folder</span> <span class="pre">contains</span> <span class="pre">a</span> <span class="pre">Dev</span> <span class="pre">Container</span> <span class="pre">configuration</span> <span class="pre">file.</span></code></p>
+<p>Close the first terminal that you see and open another one (see <a class="reference internal" href="#vscode-known"><span class="std std-ref">Known Issues</span></a>)</p>
 <p>That’s it, you are now running a developer container and your vscode session
 is connected to it.</p>
-<p>If your first integrated terminal may not load the bash profile if this
-happens just type <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">-l</span></code>.</p>
 </section>
 <section id="container-lifetime">
 <h2>Container Lifetime<a class="headerlink" href="#container-lifetime" title="Permalink to this heading"></a></h2>
@@ -225,8 +226,18 @@ file.</p></li>
 </ul>
 </div>
 </section>
+<section id="vscode-container-removal">
+<h2>VSCode Container Removal<a class="headerlink" href="#vscode-container-removal" title="Permalink to this heading"></a></h2>
+<p>If you want to remove all of the containers that VSCode has created then the
+following will do the trick:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>podman rmi -f $(podman images --filter=reference=&#39;*vsc-*&#39; -q)
+</pre></div>
+</div>
+<p>This may be useful if you are having trouble with VSCode devcontainers or
+if you are running low on disk space.</p>
+</section>
 <section id="known-issues">
-<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h2>
+<span id="vscode-known"></span><h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h2>
 <section id="first-integrated-terminal">
 <h3>First integrated terminal<a class="headerlink" href="#first-integrated-terminal" title="Permalink to this heading"></a></h3>
 <p>When a devcontainer is launched, it will usually start a single terminal that is
@@ -246,7 +257,7 @@ or type:</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="continue.html" class="btn btn-neutral float-left" title="More Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../how-to/prompt.html" class="btn btn-neutral float-right" title="Bash Prompt in dev-c7" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="prompt.html" class="btn btn-neutral float-right" title="Bash Prompt in dev-c7" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -271,7 +282,7 @@ or type:</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc3-11-g806f434
+      2.0.0-rc3-14-g714e0d7
 
       <span class="fa fa-caret-down"></span>
     </span>

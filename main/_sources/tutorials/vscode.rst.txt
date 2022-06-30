@@ -81,11 +81,10 @@ Then launch VSCode::
 Click on ``Reopen in Container`` when you see a dialogue with the message
 ``Folder contains a Dev Container configuration file.``
 
+Close the first terminal that you see and open another one (see `vscode_known`)
+
 That's it, you are now running a developer container and your vscode session
 is connected to it.
-
-If your first integrated terminal may not load the bash profile if this 
-happens just type ``bash -l``.
 
 Container Lifetime
 ------------------
@@ -128,6 +127,19 @@ not be seen in the other.
       file.
     - go to the remotes menu (icon in bottom left of VSCode) and choose
       ``Reopen Container``
+
+VSCode Container Removal
+------------------------
+
+If you want to remove all of the containers that VSCode has created then the 
+following will do the trick::
+
+    podman rmi -f $(podman images --filter=reference='*vsc-*' -q)
+
+This may be useful if you are having trouble with VSCode devcontainers or
+if you are running low on disk space.
+
+.. _vscode_known:
 
 Known Issues
 ------------

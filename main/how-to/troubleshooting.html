@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Troubleshooting &mdash; dev-c7 2.0.0-rc3-11-g806f434
+  <title>Troubleshooting &mdash; dev-c7 2.0.0-rc3-14-g714e0d7
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-rc3-11-g806f434
+                2.0.0-rc3-14-g714e0d7
 
               </div>
 <div role="search">
@@ -52,20 +52,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/start.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/continue.html">More Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/vscode.html">VSCode Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/prompt.html">Bash Prompt in dev-c7</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="prompt.html">Bash Prompt in dev-c7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Managing Containers and Images on a Workstation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="containers.html#defining-a-container-image">Defining a Container Image</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#edm-fonts">EDM Fonts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vscode-container-removal">VSCode Container Removal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#insufficient-uids-gids">Insufficient UIDs/GIDs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#first-terminal-in-vscode">First Terminal in VSCode</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="deriving.html">Derive your own container image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podman.html">Updating Podman Settings</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul>
@@ -114,16 +113,6 @@ themselves.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">install</span></code> on each of the rpms in this folder
 <a class="reference external" href="https://github.com/dls-controls/dev-c7/tree/dev/edm-fonts">https://github.com/dls-controls/dev-c7/tree/dev/edm-fonts</a></p>
 </section>
-<section id="vscode-container-removal">
-<h2>VSCode Container Removal<a class="headerlink" href="#vscode-container-removal" title="Permalink to this heading"></a></h2>
-<p>If you want to remove all of the containers that VSCode has created then the
-following will do the trick:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>podman rmi -f $(podman images --filter=reference=&#39;*vsc-*&#39; -q)
-</pre></div>
-</div>
-<p>This may be useful if you are having trouble with VSCode devcontainers or
-if you are running low on disk space.</p>
-</section>
 <section id="insufficient-uids-gids">
 <h2>Insufficient UIDs/GIDs<a class="headerlink" href="#insufficient-uids-gids" title="Permalink to this heading"></a></h2>
 <p>When building the container for the first time, you may come across the following:
@@ -133,18 +122,11 @@ if you are running low on disk space.</p>
 <span class="pre">stderr:</span> <span class="pre">potentially</span> <span class="pre">insufficient</span> <span class="pre">UIDs</span> <span class="pre">or</span> <span class="pre">GIDs</span> <span class="pre">available</span> <span class="pre">in</span> <span class="pre">user</span> <span class="pre">namespace</span> <span class="pre">(requested</span> <span class="pre">0:54</span> <span class="pre">for</span> <span class="pre">/run/lock/lockdev):</span>
 <span class="pre">Check</span> <span class="pre">/etc/subuid</span> <span class="pre">and</span> <span class="pre">/etc/subgid:</span> <span class="pre">lchown</span> <span class="pre">/run/lock/lockdev:</span> <span class="pre">invalid</span> <span class="pre">argument</span>
 <span class="pre">`</span></code></p>
-<p>Rootless Podman uses a pause process to preserve the unprivileged namespaces, which locks down the user files /etc/subuid and /etc/subgid.
-The following command will stop the pause process and release the files for editing:</p>
+<p>Rootless Podman uses a pause process to preserve the unprivileged namespaces,
+which locks down the user files /etc/subuid and /etc/subgid.
+The following command will stop the pause process and release the files for
+editing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">podman</span> <span class="n">system</span> <span class="n">migrate</span>
-</pre></div>
-</div>
-</section>
-<section id="first-terminal-in-vscode">
-<h2>First Terminal in VSCode<a class="headerlink" href="#first-terminal-in-vscode" title="Permalink to this heading"></a></h2>
-<p>When using vscode and the devcontainer the first terminal will usually NOT
-have run your login profile (.bash_profile).</p>
-<p>To work around this, close and reopen the 1st terminal or type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">-</span><span class="n">l</span>
 </pre></div>
 </div>
 </section>
@@ -180,7 +162,7 @@ have run your login profile (.bash_profile).</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-rc3-11-g806f434
+      2.0.0-rc3-14-g714e0d7
 
       <span class="fa fa-caret-down"></span>
     </span>
