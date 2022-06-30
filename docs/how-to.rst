@@ -8,6 +8,7 @@ Practical step-by-step guides for the more experienced user.
 .. toctree::
     :caption: How-to Guides
 
+    how-to/prompt
     how-to/containers
     how-to/troubleshooting
     how-to/deriving
