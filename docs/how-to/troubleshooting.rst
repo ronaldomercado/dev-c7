@@ -12,16 +12,6 @@ themselves.
 Use ``sudo yum install`` on each of the rpms in this folder
 https://github.com/dls-controls/dev-c7/tree/dev/edm-fonts
 
-VSCode Container Removal
-------------------------
-
-If you want to remove all of the containers that VSCode has created then the 
-following will do the trick::
-
-    podman rmi -f $(podman images --filter=reference='*vsc-*' -q)
-
-This may be useful if you are having trouble with VSCode devcontainers or
-if you are running low on disk space.
 
 Insufficient UIDs/GIDs
 ----------------------
@@ -34,17 +24,11 @@ stderr: potentially insufficient UIDs or GIDs available in user namespace (reque
 Check /etc/subuid and /etc/subgid: lchown /run/lock/lockdev: invalid argument
 ```
 
-Rootless Podman uses a pause process to preserve the unprivileged namespaces, which locks down the user files /etc/subuid and /etc/subgid.
-The following command will stop the pause process and release the files for editing::
+Rootless Podman uses a pause process to preserve the unprivileged namespaces, 
+which locks down the user files /etc/subuid and /etc/subgid.
+The following command will stop the pause process and release the files for 
+editing::
 
     podman system migrate
 
-First Terminal in VSCode
-------------------------
-When using vscode and the devcontainer the first terminal will usually NOT
-have run your login profile (.bash_profile).
-
-To work around this, close and reopen the 1st terminal or type::
-
-    bash -l
     

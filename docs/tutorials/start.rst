@@ -9,6 +9,11 @@ do an initial podman setup::
 
     /dls_sw/apps/setup-podman/setup.sh
 
+.. warning::
+
+    If you have previously used podman you may need to perform a migration.
+    See `../how-to/podman`
+
 Second, in order to support secondary groups we require the crun container 
 runtime. This should be installed by default but early adopters
 will need::
