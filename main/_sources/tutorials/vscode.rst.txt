@@ -67,10 +67,13 @@ How to Use
 ----------
 
 To use VSCode with a developer container, first add the
-``.devcontainer.json`` file to the root of your project::
+``.devcontainer`` folder with ``devcontainer.json`` 
+file to the root of your project::
 
     cd <my project folder>
-    curl -O https://raw.githubusercontent.com/dls-controls/dev-c7/main/.devcontainer.json
+    mkdir .devcontainer
+    cd .devcontainer
+    wget -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/devcontainer.json
 
 Then launch VSCode::
 
@@ -85,6 +88,10 @@ Close the first terminal that you see and open another one (see `vscode_known`)
 
 That's it, you are now running a developer container and your vscode session
 is connected to it.
+
+The above gets version 2.0.0 which is current as of 01/07/2022.
+See https://github.com/dls-controls/dev-c7/releases for the latest updates.
+
 
 Container Lifetime
 ------------------
@@ -123,7 +130,7 @@ not be seen in the other.
       Folder to Workspace" from the right click menu in the File Explorer
     - choose ``File->Save Workspace As...`` and save the workspace to a 
       file, usually in the folder that is a common root to your projects.
-    - copy ``.devcontainer.json`` file to the same folder as the workspace
+    - copy the ``.devcontainer`` folder to the same folder as the workspace
       file.
     - go to the remotes menu (icon in bottom left of VSCode) and choose
       ``Reopen Container``
