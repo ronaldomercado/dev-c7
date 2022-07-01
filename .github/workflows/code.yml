@@ -66,3 +66,28 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+
+  release:
+    needs: [make-container]
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: make release scripts
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        run: |
+          # create version specific launcher and devcontainer
+          version=${GITHUB_REF#refs/*/}
+          sed  's/\(^ *"image".*\)\(latest\)/\1'"${version}"/ .devcontainer.json > /tmp/devcontainer.json
+          sed  's/\(version=.*\)\(latest\)/\1'"${version}"/ run-dev-c7.sh > /tmp/run-dev-c7.sh
+
+      - name: Github Release
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v0.1.14
+        with:
+          files: |
+            /tmp/devcontainer.json
+            /tmp/run-dev-c7.sh
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
