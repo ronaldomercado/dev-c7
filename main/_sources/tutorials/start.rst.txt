@@ -27,7 +27,7 @@ Next, copy the startup script to your local bin directory and make it
 executable::
 
     cd $HOME/bin
-    wget -nc -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
+    wget -nc https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
     chmod run-dev-c7.sh
 
 The above gets version 2.0.0 which is current as of 01/07/2022.
