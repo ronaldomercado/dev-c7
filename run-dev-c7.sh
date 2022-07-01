@@ -10,8 +10,9 @@ hostname=$(hostname)
 changed=false
 pull=false
 rhel=8
+delete=false
 
-while getopts "phs:i:v:" arg; do
+while getopts "dphs:i:v:" arg; do
     case $arg in
     p)  
         pull=true
@@ -29,6 +30,8 @@ while getopts "phs:i:v:" arg; do
         version=$OPTARG
         changed=true
         ;;
+    d)  delete=true
+        ;;
     *)
         echo "
 usage: run-dev-c7.sh [options]
@@ -42,6 +45,7 @@ Options:
     -i image        specify the container image (default: "${image}")
     -v version      specify the image version (default: "${version}")
     -s host         set a hostname for your container (default: ${hostname})
+    -d              delete previous container and start afresh
 "
         exit 0
         ;;
@@ -52,6 +56,11 @@ done
 if [[ -e /etc/centos-release ]] ; then
     echo "ERROR: already in the a devcontainer"
     exit 1
+fi
+
+if ${delete} ; then
+    podman rm -ft0 dev-c7
+    changed=false
 fi
 
 if [[ $(podman version -f {{.Version}}) == 1.* ]] ; then
@@ -112,10 +121,10 @@ if [[ -n $(podman ps -q -f name=${container_name}) ]]; then
         echo "Delete the container with 'podman rm -ft0 dev-c7' and retry."
         exit 1
     fi 
-    echo 'attaching to exisitng dev-c7 container ${version} ...'
+    echo "attaching to exisitng dev-c7 container ${version} ..."
 elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     # start the stopped container
-    echo 'restarting stopped dev-c7 container ${version} ...'
+    echo "restarting stopped dev-c7 container ${version} ..."
     podman start ${container_name}
 else
     # check for updates if requested
@@ -127,7 +136,7 @@ else
     # prior to sleep we update the default shell to be bash
     # this is because podman adds a user in etc/passwd but fails to honor
     # /etc/adduser.conf
-    echo 'creating new dev-c7 container ${version} ...'
+    echo "creating new dev-c7 container ${version} ..."
     podman run -dit --name ${container_name} ${runtime} ${environ}\
         ${identity} ${volumes} ${devices} ${opts} ${image}:${version} \
         bash -c "sudo sed -i s#/bin/sh#/bin/bash# /etc/passwd ; bash"

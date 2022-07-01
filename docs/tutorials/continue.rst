@@ -21,21 +21,19 @@ To see optional parameters, run the launch script with -h::
         -p              pull an updated version of the image first   
         -i image        specify the container image (default: ghcr.io/dls-controls/dev-c7)
         -v version      specify the image version (default: latest)
-        -s host         set a hostname for your container (default: dev-c7)
+        -s host         set a hostname for your container (default: pc0116.cs.diamond.ac.uk)
+        -d              delete previous container and start afresh
 
 Versions
 --------
 
-The default behaviour is that ``run-dev-c7.sh`` will use the latest version
-of the container image that is cached locally. If there has been an update
-to the image registry and you would like to pull that then use ``-p``::
+The default behaviour is that ``run-dev-c7.sh`` will use the version matching
+the version of the script you downloaded.
 
-    run-dev-c7.sh -p
+If you would like to roll back to a previous version or try a newer version
+of the container then use the -v option::
 
-If you would like to roll back to a previous version then use the -v 
-option::
-
-    run-dev-c7.sh -v 2.0.0-rc2
+    run-dev-c7.sh -v 2.0.0-rc1
 
 To check what versions of the image are available, take a look at the 
 github container registry for this project 
@@ -79,9 +77,28 @@ When you next launch the container, it will be started with its file system
 initialized back to the default state specified in the image at
 ghcr.io/dls-controls/dev-c7:latest.
 
+You can also ask ``run-dev-c7.sh`` to perform the delete for you with ``-d``.
+
 .. warning::
     Any changes you have made to the container itself will be lost when you 
     execute the above command. This includes
     any ``yum install`` and any changes to the operating system files.
     See `../explanations/how_it_works` for more detail. To permanently 
     persist changes see `deriving`.
+
+Upgrade to a new dev-c7 version
+-------------------------------
+
+It best to update the script and the container image together as follows::
+
+
+    cd $HOME/bin
+    rm run-dev-c7.sh
+    wget -nc -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
+    chmod run-dev-c7.sh
+
+    run-dev-c7.sh -d # -d deletes previous container to start afresh
+
+Also update your devcontainer.json to match for projects you want to also 
+upgrade.
+
