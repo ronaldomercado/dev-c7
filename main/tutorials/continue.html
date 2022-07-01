@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>More Features &mdash; dev-c7 2.0.0-2-g66afc30
+  <title>More Features &mdash; dev-c7 2.0.0-3-gc7d87b0
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
             <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-2-g66afc30
+                2.0.0-3-gc7d87b0
 
               </div>
 <div role="search">
@@ -55,6 +55,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#versions">Versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lifetime">Lifetime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deleting-the-container">Deleting the container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrade-to-a-new-dev-c7-version">Upgrade to a new dev-c7 version</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="vscode.html">VSCode Integration</a></li>
@@ -183,6 +184,20 @@ See <a class="reference internal" href="../explanations/how_it_works.html"><span
 persist changes see <a class="reference internal" href="../how-to/deriving.html#deriving"><span class="std std-ref">Derive your own container image</span></a>.</p>
 </div>
 </section>
+<section id="upgrade-to-a-new-dev-c7-version">
+<h2>Upgrade to a new dev-c7 version<a class="headerlink" href="#upgrade-to-a-new-dev-c7-version" title="Permalink to this heading"></a></h2>
+<p>It best to update the script and the container image together as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/bin
+rm run-dev-c7.sh
+wget -nc -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
+chmod run-dev-c7.sh
+
+run-dev-c7.sh -d # -d deletes previous container to start afresh
+</pre></div>
+</div>
+<p>Also update your devcontainer.json to match for projects you want to also
+upgrade.</p>
+</section>
 </section>
 
 
@@ -215,7 +230,7 @@ persist changes see <a class="reference internal" href="../how-to/deriving.html#
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-2-g66afc30
+      2.0.0-3-gc7d87b0
 
       <span class="fa fa-caret-down"></span>
     </span>

@@ -85,3 +85,20 @@ You can also ask ``run-dev-c7.sh`` to perform the delete for you with ``-d``.
     any ``yum install`` and any changes to the operating system files.
     See `../explanations/how_it_works` for more detail. To permanently 
     persist changes see `deriving`.
+
+Upgrade to a new dev-c7 version
+-------------------------------
+
+It best to update the script and the container image together as follows::
+
+
+    cd $HOME/bin
+    rm run-dev-c7.sh
+    wget -nc -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
+    chmod run-dev-c7.sh
+
+    run-dev-c7.sh -d # -d deletes previous container to start afresh
+
+Also update your devcontainer.json to match for projects you want to also 
+upgrade.
+
