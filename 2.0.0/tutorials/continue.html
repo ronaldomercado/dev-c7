@@ -123,21 +123,18 @@ Options:
     -p              pull an updated version of the image first
     -i image        specify the container image (default: ghcr.io/dls-controls/dev-c7)
     -v version      specify the image version (default: latest)
-    -s host         set a hostname for your container (default: dev-c7)
+    -s host         set a hostname for your container (default: pc0116.cs.diamond.ac.uk)
+    -d              delete previous container and start afresh
 </pre></div>
 </div>
 </section>
 <section id="versions">
 <h2>Versions<a class="headerlink" href="#versions" title="Permalink to this heading"></a></h2>
-<p>The default behaviour is that <code class="docutils literal notranslate"><span class="pre">run-dev-c7.sh</span></code> will use the latest version
-of the container image that is cached locally. If there has been an update
-to the image registry and you would like to pull that then use <code class="docutils literal notranslate"><span class="pre">-p</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">p</span>
-</pre></div>
-</div>
-<p>If you would like to roll back to a previous version then use the -v
-option:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">v</span> <span class="mf">2.0.0</span><span class="o">-</span><span class="n">rc2</span>
+<p>The default behaviour is that <code class="docutils literal notranslate"><span class="pre">run-dev-c7.sh</span></code> will use the version matching
+the version of the script you downloaded.</p>
+<p>If you would like to roll back to a previous version or try a newer version
+of the container then use the -v option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">v</span> <span class="mf">2.0.0</span><span class="o">-</span><span class="n">rc1</span>
 </pre></div>
 </div>
 <p>To check what versions of the image are available, take a look at the
@@ -176,6 +173,7 @@ dev-c7 shells and any GUI apps launched from them will be closed:</p>
 <p>When you next launch the container, it will be started with its file system
 initialized back to the default state specified in the image at
 ghcr.io/dls-controls/dev-c7:latest.</p>
+<p>You can also ask <code class="docutils literal notranslate"><span class="pre">run-dev-c7.sh</span></code> to perform the delete for you with <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Any changes you have made to the container itself will be lost when you
