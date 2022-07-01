@@ -27,7 +27,6 @@ Next, copy the startup script to your local bin directory and make it
 executable::
 
     cd $HOME/bin
-    rm run-dev-c7.sh # remove previous version if present
     wget -nc -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
     chmod run-dev-c7.sh
 

@@ -55,6 +55,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#versions">Versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lifetime">Lifetime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deleting-the-container">Deleting the container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrade-to-a-new-dev-c7-version">Upgrade to a new dev-c7 version</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="vscode.html">VSCode Integration</a></li>
@@ -182,6 +183,20 @@ any <code class="docutils literal notranslate"><span class="pre">yum</span> <spa
 See <a class="reference internal" href="../explanations/how_it_works.html"><span class="doc">How the dev-c7 Container Works</span></a> for more detail. To permanently
 persist changes see <a class="reference internal" href="../how-to/deriving.html#deriving"><span class="std std-ref">Derive your own container image</span></a>.</p>
 </div>
+</section>
+<section id="upgrade-to-a-new-dev-c7-version">
+<h2>Upgrade to a new dev-c7 version<a class="headerlink" href="#upgrade-to-a-new-dev-c7-version" title="Permalink to this heading"></a></h2>
+<p>It best to update the script and the container image together as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/bin
+rm run-dev-c7.sh
+wget -nc -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
+chmod run-dev-c7.sh
+
+run-dev-c7.sh -d # -d deletes previous container to start afresh
+</pre></div>
+</div>
+<p>Also update your devcontainer.json to match for projects you want to also
+upgrade.</p>
 </section>
 </section>
 
