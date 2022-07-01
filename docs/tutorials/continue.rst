@@ -94,7 +94,7 @@ It best to update the script and the container image together as follows::
 
     cd $HOME/bin
     rm run-dev-c7.sh
-    wget -nc -q https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
+    wget -nc https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
     chmod run-dev-c7.sh
 
     run-dev-c7.sh -d # -d deletes previous container to start afresh
