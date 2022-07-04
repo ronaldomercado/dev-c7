@@ -7,6 +7,9 @@
         "DISPLAY": "${localEnv:DISPLAY}",
         "HOME": "${localEnv:HOME}"
     },
+    // these two lines mount the local workspace folder so that the path is the same inside and outside the container.
+    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind,consistency=cached",
+    "workspaceFolder": "${localWorkspaceFolder}",
     "remoteUser": "${localEnv:USER}",
     // Set *default* container specific settings.json values on container create.
     "settings": {},
