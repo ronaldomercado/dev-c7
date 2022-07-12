@@ -52,6 +52,11 @@ Options:
     esac
 done
 
+if ! grep overlay ~/.config/containers/storage.conf; then
+    echo "ERROR: dev-c7 requires overlay filesystem."
+    echo "Please see https://dls-controls.github.io/dev-c7/main/how-to/podman.html"
+    exit 1
+fi
 
 if [[ -e /etc/centos-release ]] ; then
     echo "ERROR: already in the a devcontainer"
