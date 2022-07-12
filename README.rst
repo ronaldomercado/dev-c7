@@ -34,10 +34,10 @@ See the tutorial at `Quick Start <https://dls-controls.github.io/dev-c7/main/tut
     :target: https://opensource.org/licenses/Apache-2.0
     :alt: Apache License
 
-
-
 ..
     Anything below this line is used when viewing README.rst and will be replaced
     when included in index.rst
 
 See https://dls-controls.github.io/dev-c7 for detailed documentation.
+
+.. |quick| target:: tutorials/start.html
