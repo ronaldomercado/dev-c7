@@ -28,7 +28,7 @@ print("release is", release)
 
 # The short X.Y version.
 # untagged commits look like this 2.0.0-9-g51dab95
-if re.match(r"-[0-9]+-[a-z0-9]{8}", release):
+if re.match(r".*-[0-9]+-[a-z0-9]{8}", release):
     # Not on a tag
     version = "main"
 else:
