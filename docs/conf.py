@@ -6,6 +6,8 @@
 
 # -- General configuration ------------------------------------------------
 
+import re
+
 # General information about the project.
 from subprocess import check_output
 
@@ -25,7 +27,8 @@ except BaseException:
 print("release is", release)
 
 # The short X.Y version.
-if "+" in release:
+# untagged commits look like this 2.0.0-9-g51dab95
+if re.match(r"-[0-9]+-[a-z0-9]{8}", release):
     # Not on a tag
     version = "main"
 else:
