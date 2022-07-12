@@ -18,7 +18,7 @@ Images         https://ghcr.io/dls-controls/dev-c7
 Quick Start
 ===========
 
-See the tutorial at https://dls-controls.github.io/dev-c7/main/tutorials/start.html
+See the tutorial at `Quick Start <https://dls-controls.github.io/dev-c7/main/tutorials/start.html>`_.
 
 
 
@@ -34,8 +34,10 @@ See the tutorial at https://dls-controls.github.io/dev-c7/main/tutorials/start.h
     :target: https://opensource.org/licenses/Apache-2.0
     :alt: Apache License
 
+
+
 ..
     Anything below this line is used when viewing README.rst and will be replaced
     when included in index.rst
 
-See https://dls-controls.github.io/dev-c7 for more detailed documentation.
+See https://dls-controls.github.io/dev-c7 for detailed documentation.
