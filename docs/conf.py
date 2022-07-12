@@ -138,3 +138,13 @@ html_css_files = ["theme_overrides.css"]
 # Logo
 html_logo = "images/dls-logo.svg"
 html_favicon = "images/dls-favicon.ico"
+
+rst_epilog = """
+
+.. |RunLink| replace:: https://github.com/dls-controls/dev-c7/releases/download/{version}/run-dev-c7.sh
+
+.. |ProjectVersion| replace:: {version}
+
+""".format(
+    version=version.strip(),
+)
