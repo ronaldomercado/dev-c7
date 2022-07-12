@@ -18,7 +18,7 @@ Images         https://ghcr.io/dls-controls/dev-c7
 Quick Start
 ===========
 
-See the tutorial at https://dls-controls.github.io/dev-c7/main/tutorials/start.html
+See the tutorial at `Quick Start <https://dls-controls.github.io/dev-c7/main/tutorials/start.html>`_.
 
 
 
@@ -38,4 +38,6 @@ See the tutorial at https://dls-controls.github.io/dev-c7/main/tutorials/start.h
     Anything below this line is used when viewing README.rst and will be replaced
     when included in index.rst
 
-See https://dls-controls.github.io/dev-c7 for more detailed documentation.
+See https://dls-controls.github.io/dev-c7 for detailed documentation.
+
+.. |quick| target:: tutorials/start.html
