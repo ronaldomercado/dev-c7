@@ -53,7 +53,8 @@ COPY /sudoers /etc/sudoers
 RUN yum install -y xfreerdp zenity
 
 # useful tools 
-RUN yum install -y meld tk dejavu-sans-mono-fonts gnome-terminal xterm xmessage
+RUN yum install -y meld tk dejavu-sans-mono-fonts gnome-terminal xterm \
+     xmessage evince eog firefox java
 
 # Workaround to ensure all locales are available
 RUN sed -i "/override_install_langs=en_US/d" /etc/yum.conf
