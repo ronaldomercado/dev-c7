@@ -11,8 +11,11 @@ changed=false
 pull=false
 rhel=8
 delete=false
+# -l loads profile and bashrc
+command="/bin/bash -l"
+commandargs=
 
-while getopts "dphs:i:v:" arg; do
+while getopts "dphs:i:v:c" arg; do
     case $arg in
     p)  
         pull=true
@@ -30,6 +33,11 @@ while getopts "dphs:i:v:" arg; do
         version=$OPTARG
         changed=true
         ;;
+    c)
+        commandargs=YES
+        command="/bin/bash -lc "
+        break
+        ;;
     d)  delete=true
         ;;
     *)
@@ -46,11 +54,14 @@ Options:
     -v version      specify the image version (default: "${version}")
     -s host         set a hostname for your container (default: ${hostname})
     -d              delete previous container and start afresh
+    -c command      run a command in the container (must be last option)
 "
         exit 0
         ;;
     esac
 done
+
+shift $((OPTIND-1))
 
 if ! grep overlay ~/.config/containers/storage.conf &> /dev/null; then
     echo "ERROR: dev-c7 requires overlay filesystem."
@@ -78,7 +89,7 @@ use group permissions
 fi 
 
 
-environ="-e DISPLAY -e HOME -e USER"
+environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes=" 
     -v /dls_sw/prod:/dls_sw/prod
     -v /dls_sw/work:/dls_sw/work
@@ -89,6 +100,7 @@ volumes="
     -v /scratch:/scratch
     -v /home:/home
     -v /dls/science/users/:/dls/science/users/
+    -v /run/user/$(id -u):/run/user/$(id -u)
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
@@ -107,9 +119,6 @@ if which crun &> /dev/null ; then
     identity="${identity} --storage-opt ignore_chown_errors=true"
 fi
 
-# -l loads profile and bashrc
-command="/bin/bash -l"
-
 container_name=dev-c7
 
 ################################################################################
@@ -122,8 +131,8 @@ container_name=dev-c7
 if [[ -n $(podman ps -q -f name=${container_name}) ]]; then
     # container already running so no prep required   
     if ${changed} ; then
-        echo "ERROR: cannot change hostname or image on a running container."
-        echo "Delete the container with 'podman rm -ft0 dev-c7' and retry."
+        echo "ERROR: cannot change properties on a running container."
+        echo "Use -d option to delete the current container."
         exit 1
     fi 
     echo "attaching to exisitng dev-c7 container ${version} ..."
@@ -148,4 +157,9 @@ else
 fi
 # Execute a shell in the container - this allows multiple shells and avoids 
 # using process 1 so users can exit the shell without killing the container
-podman exec -itw $(pwd) ${container_name} ${command}
+if [[ -n ${commandargs} ]] ; then
+    set -x
+    podman exec -itw $(pwd) ${container_name} ${command} "$*"
+else
+    podman exec -itw $(pwd) ${container_name} ${command}
+fi

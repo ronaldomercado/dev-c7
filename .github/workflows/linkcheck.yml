@@ -34,4 +34,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Check links
-        run: sphinx-build -EWT --keep-going docs build/html -- -b linkcheck
+        run: sphinx-build -EWT --keep-going docs build/html -b linkcheck
