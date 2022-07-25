@@ -13,7 +13,7 @@ rhel=8
 delete=false
 # -l loads profile and bashrc
 command="/bin/bash -l"
-commandargs=""
+commandargs=
 
 while getopts "dphs:i:v:c" arg; do
     case $arg in
@@ -34,8 +34,9 @@ while getopts "dphs:i:v:c" arg; do
         changed=true
         ;;
     c)
-        commandargs=$(echo "${@}" | sed 's+.*-c \(.*\)+\1+')
+        commandargs=YES
         command="/bin/bash -lc "
+        break
         ;;
     d)  delete=true
         ;;
@@ -59,6 +60,8 @@ Options:
         ;;
     esac
 done
+
+shift $((OPTIND-1))
 
 if ! grep overlay ~/.config/containers/storage.conf &> /dev/null; then
     echo "ERROR: dev-c7 requires overlay filesystem."
@@ -155,7 +158,8 @@ fi
 # Execute a shell in the container - this allows multiple shells and avoids 
 # using process 1 so users can exit the shell without killing the container
 if [[ -n ${commandargs} ]] ; then
-    podman exec -it ${container_name} ${command} "${commandargs}"
+    set -x
+    podman exec -itw $(pwd) ${container_name} ${command} "$*"
 else
-    podman exec -it ${container_name} ${command}
+    podman exec -itw $(pwd) ${container_name} ${command}
 fi
