@@ -155,7 +155,7 @@ fi
 # Execute a shell in the container - this allows multiple shells and avoids 
 # using process 1 so users can exit the shell without killing the container
 if [[ -n ${commandargs} ]] ; then
-    podman exec -it ${container_name} ${command} "${commandargs}"
+    podman exec --workdir $(pwd) -it ${container_name} ${command} "${commandargs}"
 else
-    podman exec -it ${container_name} ${command}
+    podman exec --workdir $(pwd) -it ${container_name} ${command}
 fi
