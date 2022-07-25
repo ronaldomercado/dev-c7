@@ -11,8 +11,11 @@ changed=false
 pull=false
 rhel=8
 delete=false
+# -l loads profile and bashrc
+command="/bin/bash -l"
+commandargs=""
 
-while getopts "dphs:i:v:" arg; do
+while getopts "dphs:i:v:c" arg; do
     case $arg in
     p)  
         pull=true
@@ -30,6 +33,10 @@ while getopts "dphs:i:v:" arg; do
         version=$OPTARG
         changed=true
         ;;
+    c)
+        commandargs=$(echo "${@}" | sed 's+.*-c \(.*\)+\1+')
+        command="/bin/bash -lc "
+        ;;
     d)  delete=true
         ;;
     *)
@@ -46,6 +53,7 @@ Options:
     -v version      specify the image version (default: "${version}")
     -s host         set a hostname for your container (default: ${hostname})
     -d              delete previous container and start afresh
+    -c command      run a command in the container (must be last option)
 "
         exit 0
         ;;
@@ -108,9 +116,6 @@ if which crun &> /dev/null ; then
     identity="${identity} --storage-opt ignore_chown_errors=true"
 fi
 
-# -l loads profile and bashrc
-command="/bin/bash -l"
-
 container_name=dev-c7
 
 ################################################################################
@@ -149,4 +154,9 @@ else
 fi
 # Execute a shell in the container - this allows multiple shells and avoids 
 # using process 1 so users can exit the shell without killing the container
-podman exec -itw $(pwd) ${container_name} ${command}
+set -x
+if [[ -n ${commandargs} ]] ; then
+    podman exec -it ${container_name} ${command} "${commandargs}"
+else
+    podman exec -it ${container_name} ${command}
+fi
