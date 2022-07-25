@@ -78,7 +78,7 @@ use group permissions
 fi 
 
 
-environ="-e DISPLAY -e HOME -e USER"
+environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes=" 
     -v /dls_sw/prod:/dls_sw/prod
     -v /dls_sw/work:/dls_sw/work
@@ -89,6 +89,7 @@ volumes="
     -v /scratch:/scratch
     -v /home:/home
     -v /dls/science/users/:/dls/science/users/
+    -v /run/user/$(id -u):/run/user/$(id -u)
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
@@ -122,8 +123,8 @@ container_name=dev-c7
 if [[ -n $(podman ps -q -f name=${container_name}) ]]; then
     # container already running so no prep required   
     if ${changed} ; then
-        echo "ERROR: cannot change hostname or image on a running container."
-        echo "Delete the container with 'podman rm -ft0 dev-c7' and retry."
+        echo "ERROR: cannot change properties on a running container."
+        echo "Use -d option to delete the current container."
         exit 1
     fi 
     echo "attaching to exisitng dev-c7 container ${version} ..."
