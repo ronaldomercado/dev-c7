@@ -45,6 +45,10 @@ then proceed to `update`.
 This is a one off process only, in future your podman files will be safely in 
 their own subfolder.
 
+.. note::
+    When running podman system reset
+    an error regarding removal of ``/run/user/<uder_id>`` is benign.
+
 You have two options for proceeding:
 
 #. move everything first

@@ -54,8 +54,12 @@ Some PyQt applications may show this error::
 This is benign and can be ignored. (if the application is not launching Then
 this is a different issue - don't be distracted by this error)
 
-"""
+Memory Protections Error
+------------------------
 
-"""
+If you see this on launch of podman containers::
 
-"""
+    /bin/sh: error while loading shared libraries: libc.so.6: cannot change memory protections
+
+Then you are missing the ``mount_program = "/bin/fuse-overlayfs"`` entry in your 
+storage.conf file. See `podman`.
