@@ -31,4 +31,31 @@ editing::
 
     podman system migrate
 
-    
+subuid settings missing
+-----------------------
+
+IF you see this error::
+
+    ERRO[0000] cannot find UID/GID for user hgv27681: No subuid ranges found for user "hgv27681" in /etc/subuid - check rootless mode in man pages.
+    WARN[0000] Using rootless single mapping into the namespace. This might break some images. Check /etc/subuid and /etc/subgid for adding sub*ids if not using a network user
+
+Then you probably have an empty /etc/subuid file. This is automatically updated by
+cfengine at 11AM every day. If your workstation was recently built then you may
+need to wait until the next 11AM !!
+
+PyQt Errors
+-----------
+
+Some PyQt applications may show this error::
+
+    libGL error: unable to load driver: swrast_dri.so
+    libGL error: failed to load driver: swrast
+
+This is benign and can be ignored. (if the application is not launching Then
+this is a different issue - don't be distracted by this error)
+
+"""
+
+"""
+
+"""

@@ -54,7 +54,7 @@ RUN yum install -y xfreerdp zenity
 
 # useful tools 
 RUN yum install -y meld tk dejavu-sans-mono-fonts gnome-terminal xterm \
-     xmessage evince eog firefox java
+    xmessage evince eog firefox java openldap-clients
 
 # Workaround to ensure all locales are available
 RUN sed -i "/override_install_langs=en_US/d" /etc/yum.conf

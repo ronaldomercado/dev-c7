@@ -74,8 +74,12 @@ If you want to verify that the changes were applied then check the following
 files for the updates shown in $HOME/.config/containers::
 
     storage.conf
-        driver = "overlay"
-        graphroot = "/scratch/<fed_id>/podman"
+        [storage]
+            driver = "overlay"
+            runroot = "/run/user/<uder_id>/podman"
+            graphroot = "/scratch/<fed_id>/podman"  
+            [storage.options]
+                mount_program = "/bin/fuse-overlayfs"
 
     libpod.conf
         runtime = "crun"
