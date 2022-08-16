@@ -49,6 +49,9 @@ RUN yum -y install wget  && \
 RUN yum -y install sudo
 COPY /sudoers /etc/sudoers
 
+# set container time to BST
+RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
+
 # dls-remote-desktop-support
 RUN yum install -y xfreerdp zenity
 
