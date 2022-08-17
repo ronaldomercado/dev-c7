@@ -49,9 +49,6 @@ RUN yum -y install wget  && \
 RUN yum -y install sudo
 COPY /sudoers /etc/sudoers
 
-# set container time to BST
-RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
-
 # dls-remote-desktop-support
 RUN yum install -y xfreerdp zenity
 
@@ -62,3 +59,6 @@ RUN yum install -y meld tk dejavu-sans-mono-fonts gnome-terminal xterm \
 # Workaround to ensure all locales are available
 RUN sed -i "/override_install_langs=en_US/d" /etc/yum.conf
 RUN yum reinstall -y glibc-common
+
+# set container time to BST
+RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
