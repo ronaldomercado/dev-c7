@@ -11,11 +11,12 @@ changed=false
 pull=false
 rhel=8
 delete=false
+network="--net=host"
 # -l loads profile and bashrc
 command="/bin/bash -l"
 commandargs=
 
-while getopts "dphs:i:v:c" arg; do
+while getopts "dphs:i:v:cn" arg; do
     case $arg in
     p)  
         pull=true
@@ -27,6 +28,10 @@ while getopts "dphs:i:v:c" arg; do
         ;;
     i)
         image=$OPTARG
+        changed=true
+        ;;
+    n)
+        network="--network=podman"
         changed=true
         ;;
     v)
@@ -54,6 +59,7 @@ Options:
     -v version      specify the image version (default: "${version}")
     -s host         set a hostname for your container (default: ${hostname})
     -d              delete previous container and start afresh
+    -n              run in podman virtual network instead of the host network
     -c command      run a command in the container (must be last option)
 "
         exit 0
@@ -104,7 +110,7 @@ volumes="
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
-opts="--net=host --hostname ${hostname}"
+opts="${network} --hostname ${hostname}"
 
 # the identity settings enable secondary groups in the container
 if [[ ${rhel} == 8 ]] ; then
