@@ -135,7 +135,7 @@ if [[ -n $(podman ps -q -f name=${container_name}) ]]; then
         echo "Use -d option to delete the current container."
         exit 1
     fi 
-    echo "attaching to exisitng dev-c7 container ${version} ..."
+    echo "attaching to existing dev-c7 container ${version} ..."
 elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     # start the stopped container
     echo "restarting stopped dev-c7 container ${version} ..."
