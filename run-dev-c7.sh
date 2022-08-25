@@ -94,18 +94,17 @@ use group permissions
     rhel=7
 fi 
 
-
 environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes=" 
     -v /dls_sw/prod:/dls_sw/prod
     -v /dls_sw/work:/dls_sw/work
     -v /dls_sw/epics:/dls_sw/epics
-    -v /dls_sw/targetOS/vxWorks/Tornado-2.2:/dls_sw/targetOS/vxWorks/Tornado-2.2
+    -v /dls_sw/targetOS:/dls_sw/targetOS
     -v /dls_sw/apps:/dls_sw/apps
     -v /dls_sw/etc:/dls_sw/etc
     -v /scratch:/scratch
     -v /home:/home
-    -v /dls/science/users/:/dls/science/users/
+    -v /dls/science:/dls/science
     -v /run/user/$(id -u):/run/user/$(id -u)
 "
 
@@ -116,7 +115,7 @@ opts="${network} --hostname ${hostname}"
 if [[ ${rhel} == 8 ]] ; then
     identity="--security-opt=label=type:container_runtime_t --userns=keep-id
               --annotation run.oci.keep_original_groups=1"
-    volumes="${volumes} -v /tmp:/tmp --privileged"
+    volumes="${volumes} -v /tmp:/tmp"
 fi
 
 # this runtime is also required for secondary groups
