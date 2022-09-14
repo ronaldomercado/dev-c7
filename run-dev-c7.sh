@@ -11,11 +11,12 @@ changed=false
 pull=false
 rhel=8
 delete=false
+network="--net=host"
 # -l loads profile and bashrc
 command="/bin/bash -l"
 commandargs=
 
-while getopts "dphs:i:v:c" arg; do
+while getopts "dphs:i:v:cn" arg; do
     case $arg in
     p)  
         pull=true
@@ -27,6 +28,10 @@ while getopts "dphs:i:v:c" arg; do
         ;;
     i)
         image=$OPTARG
+        changed=true
+        ;;
+    n)
+        network="--network=podman"
         changed=true
         ;;
     v)
@@ -54,6 +59,7 @@ Options:
     -v version      specify the image version (default: "${version}")
     -s host         set a hostname for your container (default: ${hostname})
     -d              delete previous container and start afresh
+    -n              run in podman virtual network instead of the host network
     -c command      run a command in the container (must be last option)
 "
         exit 0
@@ -88,29 +94,28 @@ use group permissions
     rhel=7
 fi 
 
-
 environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes=" 
     -v /dls_sw/prod:/dls_sw/prod
     -v /dls_sw/work:/dls_sw/work
     -v /dls_sw/epics:/dls_sw/epics
-    -v /dls_sw/targetOS/vxWorks/Tornado-2.2:/dls_sw/targetOS/vxWorks/Tornado-2.2
+    -v /dls_sw/targetOS:/dls_sw/targetOS
     -v /dls_sw/apps:/dls_sw/apps
     -v /dls_sw/etc:/dls_sw/etc
     -v /scratch:/scratch
     -v /home:/home
-    -v /dls/science/users/:/dls/science/users/
+    -v /dls/science:/dls/science
     -v /run/user/$(id -u):/run/user/$(id -u)
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
-opts="--net=host --hostname ${hostname}"
+opts="${network} --hostname ${hostname}"
 
 # the identity settings enable secondary groups in the container
 if [[ ${rhel} == 8 ]] ; then
     identity="--security-opt=label=type:container_runtime_t --userns=keep-id
               --annotation run.oci.keep_original_groups=1"
-    volumes="${volumes} -v /tmp:/tmp --privileged"
+    volumes="${volumes} -v /tmp:/tmp"
 fi
 
 # this runtime is also required for secondary groups
