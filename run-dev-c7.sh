@@ -16,7 +16,7 @@ network="--net=host"
 command="/bin/bash -l"
 commandargs=
 
-while getopts "dphs:i:v:cn" arg; do
+while getopts "dphs:i:v:cnI" arg; do
     case $arg in
     p)  
         pull=true
@@ -45,6 +45,8 @@ while getopts "dphs:i:v:cn" arg; do
         ;;
     d)  delete=true
         ;;
+    I)  install=true
+        ;;
     *)
         echo "
 usage: run-dev-c7.sh [options]
@@ -61,6 +63,7 @@ Options:
     -d              delete previous container and start afresh
     -n              run in podman virtual network instead of the host network
     -c command      run a command in the container (must be last option)
+    -I              Install .devcontainer/devcontainer.json in the current directory for vscode
 "
         exit 0
         ;;
@@ -68,6 +71,14 @@ Options:
 done
 
 shift $((OPTIND-1))
+
+if ${install} ; then
+    mkdir -p .devcontainer
+    cd .devcontainer
+    wget -q https://github.com/dls-controls/dev-c7/releases/download/${version}/devcontainer.json
+    echo "Installed devcontainer.json. Try 'Reopen in Container' or 'Reload Window'."
+    exit 0
+fi
 
 if ! grep overlay ~/.config/containers/storage.conf &> /dev/null; then
     echo "ERROR: dev-c7 requires overlay filesystem."
