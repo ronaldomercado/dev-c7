@@ -11,6 +11,7 @@ changed=false
 pull=false
 rhel=8
 delete=false
+install_devcontainer_json=false
 network="--net=host"
 # -l loads profile and bashrc
 command="/bin/bash -l"
@@ -45,7 +46,7 @@ while getopts "dphs:i:v:cnI" arg; do
         ;;
     d)  delete=true
         ;;
-    I)  install=true
+    I)  install_devcontainer_json=true
         ;;
     *)
         echo "
@@ -72,7 +73,7 @@ done
 
 shift $((OPTIND-1))
 
-if ${install} ; then
+if ${install_devcontainer_json} ; then
     mkdir -p .devcontainer
     cd .devcontainer
     wget -q https://github.com/dls-controls/dev-c7/releases/download/${version}/devcontainer.json
