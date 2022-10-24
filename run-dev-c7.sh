@@ -73,7 +73,7 @@ done
 
 shift $((OPTIND-1))
 
-if ${install_devcontainer_json} ; then
+if [[ ${install_devcontainer_json} == true ]] ; then
     mkdir -p .devcontainer
     cd .devcontainer
     wget -q https://github.com/dls-controls/dev-c7/releases/download/${version}/devcontainer.json
