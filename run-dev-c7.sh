@@ -13,12 +13,20 @@ rhel=8
 delete=false
 install_devcontainer_json=false
 network="--net=host"
+userns="--userns=keep-id"
+logging=""
 # -l loads profile and bashrc
 command="/bin/bash -l"
 commandargs=
 
-while getopts "dphs:i:v:cnI" arg; do
+while getopts "lrdphs:i:v:cnI" arg; do
     case $arg in
+    l)  logging="set -x"    # enable logging
+        ;;
+    r)
+        changed=true
+        userns=""
+        ;;
     p)
         pull=true
         changed=true
@@ -56,7 +64,9 @@ Launches a developer container that simulates a DLS RHEL7 workstation.
 
 Options:
 
+    -l              Enable logging
     -h              show this help
+    -r              run as root
     -p              pull an updated version of the image first
     -i image        specify the container image (default: "${image}")
     -v version      specify the image version (default: "${version}")
@@ -125,7 +135,7 @@ opts="${network} --hostname ${hostname}"
 
 # the identity settings enable secondary groups in the container
 if [[ ${rhel} == 8 ]] ; then
-    identity="--security-opt=label=type:container_runtime_t --userns=keep-id
+    identity="--security-opt=label=type:container_runtime_t ${userns}
               --annotation run.oci.keep_original_groups=1"
     volumes="${volumes} -v /tmp:/tmp"
 fi
@@ -174,6 +184,7 @@ if [[ ${running} == "false" ]]; then
     # this is because podman adds a user in etc/passwd but fails to honor
     # /etc/adduser.conf
     echo "creating new dev-c7 container ${version} ..."
+    ${logging}
     podman run -dit --name ${container_name} ${runtime} ${environ}\
         ${identity} ${volumes} ${devices} ${opts} ${image}:${version} \
         bash -c "sudo sed -i s#/bin/sh#/bin/bash# /etc/passwd ; bash"
@@ -182,8 +193,9 @@ fi
 # Execute a shell in the container - this allows multiple shells and avoids
 # using process 1 so users can exit the shell without killing the container
 if [[ -n ${commandargs} ]] ; then
-    set -x
+    ${logging}
     podman exec -itw $(pwd) ${container_name} ${command} "$*"
 else
+    ${logging}
     podman exec -itw $(pwd) ${container_name} ${command}
 fi
