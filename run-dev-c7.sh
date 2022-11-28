@@ -64,9 +64,8 @@ Launches a developer container that simulates a DLS RHEL7 workstation.
 
 Options:
 
-    -l              Enable logging
     -h              show this help
-    -r              run as root
+    -l              Enable logging
     -p              pull an updated version of the image first
     -i image        specify the container image (default: "${image}")
     -v version      specify the image version (default: "${version}")
@@ -75,6 +74,7 @@ Options:
     -n              run in podman virtual network instead of the host network
     -c command      run a command in the container (must be last option)
     -I              Install .devcontainer/devcontainer.json in the current directory for vscode
+    -r              run as root
 "
         exit 0
         ;;
@@ -118,15 +118,10 @@ fi
 
 environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes="
-    -v /dls_sw/prod:/dls_sw/prod
-    -v /dls_sw/work:/dls_sw/work
-    -v /dls_sw/epics:/dls_sw/epics
-    -v /dls_sw/targetOS:/dls_sw/targetOS
-    -v /dls_sw/apps:/dls_sw/apps
-    -v /dls_sw/etc:/dls_sw/etc
     -v /scratch:/scratch
     -v /home:/home
-    -v /dls/science:/dls/science
+    -v /dls/:/dls
+    -v /dls_sw/:/dls_sw
     -v /run/user/$(id -u):/run/user/$(id -u)
 "
 
