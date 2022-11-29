@@ -11,6 +11,7 @@ changed=false
 pull=false
 rhel=8
 delete=false
+gui=false
 install_devcontainer_json=false
 network="--net=host"
 userns="--userns=keep-id"
@@ -19,13 +20,17 @@ logging=""
 command="/bin/bash -l"
 commandargs=
 
-while getopts "lrdphs:i:v:cnI" arg; do
+while getopts "glrdphs:i:v:cnI" arg; do
     case $arg in
     l)  logging="set -x"    # enable logging
         ;;
     r)
         changed=true
         userns=""
+        ;;
+    g)
+        changed=true
+        gui=true
         ;;
     p)
         pull=true
@@ -74,6 +79,7 @@ Options:
     -n              run in podman virtual network instead of the host network
     -c command      run a command in the container (must be last option)
     -I              Install .devcontainer/devcontainer.json in the current directory for vscode
+    -g              enable X11 GUI for containers launched via ssh (less secure)
     -r              run as root
 "
         exit 0
@@ -142,6 +148,26 @@ if which crun &> /dev/null ; then
 fi
 
 container_name=dev-c7
+
+# setup X11 to work even if you launched dev-c7 from an ssh shell
+# NOTE: this does not appear to be needed - I believe because the
+# container uses keep-id the X11 auth passes through SSH OK.
+if [[ ${gui} == "true" ]] ; then
+    XSOCK=/tmp/.X11-unix # X11 socket (but we mount the whole of tmp)
+    XAUTH=/tmp/.container.xauth.$USER
+    touch $XAUTH
+    xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+    chmod 777 $XAUTH
+
+    x11="
+    -v $XAUTH:$XAUTH
+    -e XAUTHORITY=$XAUTH
+    "
+
+    opts="${opts} ${x11}"
+
+    echo "X11 over ssh compatibility mode"
+fi
 
 ################################################################################
 # Start the container in the background and then launch an interactive bash
