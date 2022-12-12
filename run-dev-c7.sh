@@ -124,7 +124,15 @@ fi
 
 environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes="
+    -v /dls_sw/prod:/dls_sw/prod
+    -v /dls_sw/work:/dls_sw/work
+    -v /dls_sw/epics:/dls_sw/epics
+    -v /dls_sw/targetOS:/dls_sw/targetOS
+    -v /dls_sw/apps:/dls_sw/apps
+    -v /dls_sw/etc:/dls_sw/etc
     -v /scratch:/scratch
+    -v /dls/science:/dls/science
+    -v /dls/detectors:/dls/detectors
     -v /home:/home
     -v /dls/:/dls
     -v /dls_sw/:/dls_sw
