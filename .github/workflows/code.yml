@@ -77,9 +77,6 @@ jobs:
       - name: Github Release
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v0.1.14
         with:
-          files: |
-            /tmp/devcontainer.json
-            /tmp/c7
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -144,8 +144,6 @@ html_favicon = "images/dls-favicon.ico"
 
 rst_epilog = """
 
-.. |RunLink| replace:: https://github.com/dls-controls/dev-c7/releases/download/{version}/run-dev-c7.sh
-
 .. |ProjectVersion| replace:: {version}
 
 """.format(
