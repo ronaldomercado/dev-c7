@@ -92,7 +92,7 @@ shift $((OPTIND-1))
 if [[ ${install_devcontainer_json} == true ]] ; then
     mkdir -p .devcontainer
     cd .devcontainer
-    wget -q https://github.com/dls-controls/dev-c7/releases/download/${version}/devcontainer.json
+    wget -q https://raw.githubusercontent.com/dls-controls/dev-c7/main/.devcontainer/devcontainer.json
     echo "Installed devcontainer.json. Try 'Reopen in Container' or 'Reload Window'."
     exit 0
 fi
