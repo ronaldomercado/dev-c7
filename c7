@@ -63,7 +63,7 @@ while getopts "glrdphs:i:v:cnI" arg; do
         ;;
     *)
         echo "
-usage: run-dev-c7.sh [options]
+usage: c7 [options]
 
 Launches a developer container that simulates a DLS RHEL7 workstation.
 
@@ -92,7 +92,8 @@ shift $((OPTIND-1))
 if [[ ${install_devcontainer_json} == true ]] ; then
     mkdir -p .devcontainer
     cd .devcontainer
-    wget -q https://raw.githubusercontent.com/dls-controls/dev-c7/main/.devcontainer/devcontainer.json
+    wget -nv https://raw.githubusercontent.com/dls-controls/dev-c7/main/.devcontainer/devcontainer.json
+    echo
     echo "Installed devcontainer.json. Try 'Reopen in Container' or 'Reload Window'."
     exit 0
 fi
