@@ -79,7 +79,7 @@ Options:
     -n              run in podman virtual network instead of the host network
     -c command      run a command in the container (must be last option)
     -I              Install .devcontainer/devcontainer.json in the current directory for vscode
-    -g              enable X11 GUI for containers launched via ssh (less secure)
+    -g              enable X11 GUI for containers launched via ssh (only required with -r)
     -r              run as root
 "
         exit 0
@@ -194,25 +194,30 @@ if [[ -n $(podman ps -q -f name=${container_name}) ]]; then
         exit 1
     fi
     running=true
-    echo "attaching to existing dev-c7 container ${version} ..."
+    version_tag=$(podman inspect --format='{{index .Config.Labels "org.opencontainers.image.version"}}' dev-c7)
+    echo "Attaching to existing dev-c7 container version ${version_tag:- Unknown} ..."
 elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     # start the stopped container
-    echo "deleting stopped dev-c7 container ..."
+    echo "Restarting stopped dev-c7 container ..."
 
-    podman rm ${container_name}
+    podman start ${container_name}
 fi
 
 if [[ ${running} == "false" ]]; then
-    # check for updates if requested
+    # check for updates if requested/required
+    if ! podman image exists ${image}:${version} ; then
+        pull=true
+    fi
     if ${pull} ; then
         podman pull ${image}:${version}; echo
     fi
 
-    # create a new background container making process 1 be 'sleep'
-    # prior to sleep we update the default shell to be bash
+    # Create a new background container making process 1 wait indefinitely.
+    # Prior to sleep we update the default shell to be bash,
     # this is because podman adds a user in etc/passwd but fails to honor
     # /etc/adduser.conf
-    echo "creating new dev-c7 container ${version} ..."
+    version_tag=$(podman inspect --format='{{index .Labels "org.opencontainers.image.version"}}' ghcr.io/dls-controls/dev-c7:${version})
+    echo "Creating new dev-c7 container version ${version_tag:- Unknown} ..."
     ${logging}
     podman run -dit --name ${container_name} ${runtime} ${environ}\
         ${identity} ${volumes} ${devices} ${opts} ${image}:${version} \
