@@ -21,11 +21,11 @@ See `dockerfile`
 Make Container Image
 ~~~~~~~~~~~~~~~~~~~~
 
-The image can be made locally with the script ``build-dec-c7.sh``. The
+The image can be made locally with the script ``build-dec-c7``. The
 resulting image will be placed in the local cache with the tag
 ``ghcr.io/dls-controls/dev-c7:latest``.
 
-Since this is the default tag that ``run-dev-c7.sh`` uses you can now use it
+Since this is the default tag that ``run-dev-c7`` uses you can now use it
 launch and try out the new container image.
 
 At present there are no tests to prove that the resulting image works. TBA.
@@ -36,10 +36,10 @@ Documentation
 In order to build the documentation you will require a python virtual
 environment. Set up as follows::
 
-    $ cd dev-c7 
+    $ cd dev-c7
     $ virtualenv .venv
     $ source .venv
-    $ pip install -r requirements.txt 
+    $ pip install -r requirements.txt
 
 Documentation is contained in the ``docs`` directory.
 
@@ -64,7 +64,7 @@ Release Process
 
 To make a new release, please follow this checklist:
 
-- make changes on a branch and test locally with ``build-dev-c7.sh``
+- make changes on a branch and test locally with ``build-dev-c7``
 - add any required updates to the docs and test with ``docs/make_docs.sh``
 - push the changes to GitHub
 - Go to https://github.com/dls-controls/dev-c7/pulls and create a PR to main
