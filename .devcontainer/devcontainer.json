@@ -12,6 +12,7 @@
     "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind,consistency=cached",
     "workspaceFolder": "${localWorkspaceFolder}",
     "remoteUser": "${localEnv:USER}",
+    "containerUser": "${localEnv:USER}",
     // Set *default* container specific settings.json values on container create.
     "settings": {},
     // Add the IDs of extensions you want installed when the container is created.
@@ -29,23 +30,21 @@
         "nsd.vscode-epics",
         "alefragnani.bookmarks"
     ],
+    // use c7 to get the auto mount folders mounted
+    "initializeCommand": [
+        "bash",
+        "${localWorkspaceFolder}/c7",
+        "-m"
+    ],
     "mounts": [
-        "source=/dls/detectors,target=/dls/detectors,type=bind,consistency=cached",
-        "source=/dls_sw/prod,target=/dls_sw/prod,type=bind,consistency=cached",
-        "source=/dls_sw/work,target=/dls_sw/work,type=bind,consistency=cached",
-        "source=/dls_sw/epics,target=/dls_sw/epics,type=bind,consistency=cached",
-        "source=/dls_sw/targetOS/vxWorks/Tornado-2.2,target=//dls_sw/targetOS/vxWorks/Tornado-2.2,type=bind,consistency=cached",
-        "source=/dls_sw/apps,target=/dls_sw/apps,type=bind,consistency=cached",
-        "source=/dls_sw/etc,target=/dls_sw/etc,type=bind,consistency=cached",
+        "source=/dls,target=/dls,type=bind,consistency=cached",
+        "source=/dls_sw,target=/dls_sw,type=bind,consistency=cached",
         "source=/home,target=/home,type=bind,consistency=cached",
         "source=/scratch/,target=/scratch/,type=bind,consistency=cached",
-        "source=/dls/science/users,target=/dls/science/users,type=bind,consistency=cached",
         "source=/tmp,target=/tmp,type=bind,consistency=cached",
         "source=${localEnv:SSH_AUTH_SOCK},target=${localEnv:SSH_AUTH_SOCK},type=bind,consistency=cached"
     ],
     "runArgs": [
-        "-v/dev/ttyS0:/dev/ttyS0",
-        "-e HOME",
         "--net=host",
         "--security-opt=label=type:container_runtime_t",
         "--userns=keep-id",
