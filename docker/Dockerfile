@@ -29,12 +29,10 @@ RUN yum update -y && \
     hdf5-devel zeromq-devel librdkafka-devel \
     # QT4 dependencies
     pyqt4-devel PackageKit-gtk3-module libcanberra-gtk2 mesa-dri-drivers.x86_64 xcb-util xcb-util-devel libxcb.x86_64 libxkbcommon-x11 \
-    # allow all users inside the container to sudo
-    sudo \
     # dls-remote-desktop-support
     xfreerdp zenity \
     # useful tools
-    meld tk dejavu-sans-mono-fonts gnome-terminal xterm xmessage evince eog firefox java openldap-clients && \
+    sudo meld tk dejavu-sans-mono-fonts gnome-terminal xterm xmessage evince eog firefox java openldap-clients && \
     # clean up caches
     yum clean all && \
     # nasty hack to avoid overlay filesystem problems with --userns=keep-id
