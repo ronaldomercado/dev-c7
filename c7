@@ -95,7 +95,7 @@ shift $((OPTIND-1))
 
 # automount fails inside a container so make sure any automounts that are
 # needed get mounted before launching the container.
-# NOTE: Add any personal beamline specific automounts here
+# NOTE: Add any personal / beamline specific automounts here
 automounts="
     /dls_sw/prod /dls_sw/work /dls_sw/epics /dls_sw/targetOS /dls_sw/apps
     /dls_sw/etc /dls_sw/optics /dls_sw/FPGA/ /dls/science /dls/detectors
@@ -152,11 +152,11 @@ volumes="
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
-opts="${network} --hostname ${hostname}"
+opts="${network} --hostname ${hostname} --security-opt=label=type:container_runtime_t"
 
 # the identity settings enable secondary groups in the container
 if [[ ${rhel} == 8 ]] ; then
-    identity="--security-opt=label=type:container_runtime_t ${userns}
+    identity="${userns}
               --annotation run.oci.keep_original_groups=1"
     volumes="${volumes} -v /tmp:/tmp"
 fi

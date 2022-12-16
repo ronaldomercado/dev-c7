@@ -16,21 +16,20 @@
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
         "ms-vscode.cpptools",
-        "ms-python.python",
         "ms-python.vscode-pylance",
         "ryanluker.vscode-coverage-gutters",
         "mhutchie.git-graph",
         "eamodio.gitlens",
         "redhat.vscode-yaml",
-        "nsd.vscode-epics",
-        "streetsidesoftware.code-spell-checker",
-        "alefragnani.bookmarks"
+        "nsd.vscode-epics"
     ],
-    // use c7 to get the auto mount folders mounted
+    // automount fails inside a container so make sure any automounts that are
+    // needed get mounted before launching the container.
+    // NOTE: Add any personal / beamline specific automounts here
     "initializeCommand": [
         "bash",
-        "${localWorkspaceFolder}/c7",
-        "-m"
+        "-c",
+        "for mount in /dls_sw/prod /dls_sw/work /dls_sw/epics /dls_sw/targetOS /dls_sw/apps /dls_sw/etc /dls_sw/optics /dls_sw/FPGA/ /dls/science /dls/detectors ; do ls -d ${mount} &> /dev/null ; done"
     ],
     "mounts": [
         "source=/dls,target=/dls,type=bind,consistency=cached",
@@ -44,7 +43,6 @@
         "-e HOME",
         "--net=host",
         "--security-opt=label=disable",
-        // "--security-opt=label=type:container_runtime_t",
         "--userns=keep-id",
         "--annotation=run.oci.keep_original_groups=1",
         "--storage-opt=ignore_chown_errors=true",
