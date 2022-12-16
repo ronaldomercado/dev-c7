@@ -11,8 +11,6 @@
     // these two lines mount the local workspace folder so that the path is the same inside and outside the container.
     "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind,consistency=cached",
     "workspaceFolder": "${localWorkspaceFolder}",
-    "remoteUser": "${localEnv:USER}",
-    "containerUser": "${localEnv:USER}",
     // Set *default* container specific settings.json values on container create.
     "settings": {},
     // Add the IDs of extensions you want installed when the container is created.
@@ -20,14 +18,12 @@
         "ms-vscode.cpptools",
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "ms-vscode.cmake-tools",
-        "streetsidesoftware.code-spell-checker",
         "ryanluker.vscode-coverage-gutters",
         "mhutchie.git-graph",
         "eamodio.gitlens",
-        "gruntfuggly.todo-tree",
         "redhat.vscode-yaml",
         "nsd.vscode-epics",
+        "streetsidesoftware.code-spell-checker",
         "alefragnani.bookmarks"
     ],
     // use c7 to get the auto mount folders mounted
@@ -45,8 +41,10 @@
         "source=${localEnv:SSH_AUTH_SOCK},target=${localEnv:SSH_AUTH_SOCK},type=bind,consistency=cached"
     ],
     "runArgs": [
+        "-e HOME",
         "--net=host",
-        "--security-opt=label=type:container_runtime_t",
+        "--security-opt=label=disable",
+        // "--security-opt=label=type:container_runtime_t",
         "--userns=keep-id",
         "--annotation=run.oci.keep_original_groups=1",
         "--storage-opt=ignore_chown_errors=true",
