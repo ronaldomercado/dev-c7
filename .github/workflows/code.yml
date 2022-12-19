@@ -63,7 +63,15 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      # Stop the cache growing indefinitely (remove when the below is fixed)
+      # When removing this change cache-to above
+      # https://github.com/docker/build-push-action/issues/252#issuecomment-744400434
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   release:
     needs: [make-container]

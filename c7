@@ -12,6 +12,7 @@ pull=false
 rhel=8
 delete=false
 gui=false
+mount_only=false
 install_devcontainer_json=false
 network="--net=host"
 userns="--userns=keep-id"
@@ -20,7 +21,7 @@ logging=""
 command="/bin/bash -l"
 commandargs=
 
-while getopts "glrdphs:i:v:cnI" arg; do
+while getopts "mglrdphs:i:v:cnI" arg; do
     case $arg in
     l)  logging="set -x"    # enable logging
         ;;
@@ -59,6 +60,8 @@ while getopts "glrdphs:i:v:cnI" arg; do
         ;;
     d)  delete=true
         ;;
+    m)  mount_only=true
+        ;;
     I)  install_devcontainer_json=true
         ;;
     *)
@@ -81,6 +84,7 @@ Options:
     -I              Install .devcontainer/devcontainer.json in the current directory for vscode
     -g              enable X11 GUI for containers launched via ssh (only required with -r)
     -r              run as root
+    -m              dont run the container. Just mount the automount filesystems
 "
         exit 0
         ;;
@@ -88,6 +92,21 @@ Options:
 done
 
 shift $((OPTIND-1))
+
+# automount fails inside a container so make sure any automounts that are
+# needed get mounted before launching the container.
+# NOTE: Add any personal / beamline specific automounts here
+automounts="
+    /dls_sw/prod /dls_sw/work /dls_sw/epics /dls_sw/targetOS /dls_sw/apps
+    /dls_sw/etc /dls_sw/optics /dls_sw/FPGA/ /dls/science /dls/detectors
+"
+for mount in ${automounts} ; do
+    ls -d ${mount} &> /dev/null
+done
+
+if ${mount_only} ; then
+    exit 0
+fi
 
 if [[ ${install_devcontainer_json} == true ]] ; then
     mkdir -p .devcontainer
@@ -125,27 +144,19 @@ fi
 
 environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes="
-    -v /dls_sw/prod:/dls_sw/prod
-    -v /dls_sw/work:/dls_sw/work
-    -v /dls_sw/epics:/dls_sw/epics
-    -v /dls_sw/targetOS:/dls_sw/targetOS
-    -v /dls_sw/apps:/dls_sw/apps
-    -v /dls_sw/etc:/dls_sw/etc
     -v /scratch:/scratch
-    -v /dls/science:/dls/science
-    -v /dls/detectors:/dls/detectors
+    -v /dls:/dls
+    -v /dls_sw:/dls_sw
     -v /home:/home
-    -v /dls/:/dls
-    -v /dls_sw/:/dls_sw
     -v /run/user/$(id -u):/run/user/$(id -u)
 "
 
 devices="-v /dev/ttyS0:/dev/ttyS0"
-opts="${network} --hostname ${hostname}"
+opts="${network} --hostname ${hostname} --security-opt=label=type:container_runtime_t"
 
 # the identity settings enable secondary groups in the container
 if [[ ${rhel} == 8 ]] ; then
-    identity="--security-opt=label=type:container_runtime_t ${userns}
+    identity="${userns}
               --annotation run.oci.keep_original_groups=1"
     volumes="${volumes} -v /tmp:/tmp"
 fi
@@ -202,9 +213,7 @@ elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     echo "Restarting stopped dev-c7 container ..."
 
     podman start ${container_name}
-fi
-
-if [[ ${running} == "false" ]]; then
+elif [[ ${running} == "false" ]]; then
     # check for updates if requested/required
     if ! podman image exists ${image}:${version} ; then
         pull=true
