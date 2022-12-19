@@ -213,9 +213,7 @@ elif [[ -n $(podman ps -qa -f name=${container_name}) ]]; then
     echo "Restarting stopped dev-c7 container ..."
 
     podman start ${container_name}
-fi
-
-if [[ ${running} == "false" ]]; then
+elif [[ ${running} == "false" ]]; then
     # check for updates if requested/required
     if ! podman image exists ${image}:${version} ; then
         pull=true
