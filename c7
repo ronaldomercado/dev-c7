@@ -99,6 +99,7 @@ shift $((OPTIND-1))
 automounts="
     /dls_sw/prod /dls_sw/work /dls_sw/epics /dls_sw/targetOS /dls_sw/apps
     /dls_sw/etc /dls_sw/optics /dls_sw/FPGA/ /dls/science /dls/detectors
+    /dls/technical
 "
 for mount in ${automounts} ; do
     ls -d ${mount} &> /dev/null
