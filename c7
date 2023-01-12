@@ -60,8 +60,6 @@ while getopts "mglrdphs:i:v:cnI" arg; do
         ;;
     d)  delete=true
         ;;
-    m)  mount_only=true
-        ;;
     I)  install_devcontainer_json=true
         ;;
     *)
@@ -84,7 +82,6 @@ Options:
     -I              Install .devcontainer/devcontainer.json in the current directory for vscode
     -g              enable X11 GUI for containers launched via ssh (only required with -r)
     -r              run as root
-    -m              dont run the container. Just mount the automount filesystems
 "
         exit 0
         ;;
@@ -92,22 +89,6 @@ Options:
 done
 
 shift $((OPTIND-1))
-
-# automount fails inside a container so make sure any automounts that are
-# needed get mounted before launching the container.
-# NOTE: Add any personal / beamline specific automounts here
-automounts="
-    /dls_sw/prod /dls_sw/work /dls_sw/epics /dls_sw/targetOS /dls_sw/apps
-    /dls_sw/etc /dls_sw/optics /dls_sw/FPGA/ /dls/science /dls/detectors
-    /dls/technical
-"
-for mount in ${automounts} ; do
-    ls -d ${mount} &> /dev/null
-done
-
-if ${mount_only} ; then
-    exit 0
-fi
 
 if [[ ${install_devcontainer_json} == true ]] ; then
     mkdir -p .devcontainer
@@ -146,9 +127,9 @@ fi
 environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
 volumes="
     -v /scratch:/scratch
-    -v /dls:/dls
-    -v /dls_sw:/dls_sw
-    -v /home:/home
+    -v /dls:/dls:shared
+    -v /dls_sw:/dls_sw:shared
+    -v /home:/home:shared
     -v /run/user/$(id -u):/run/user/$(id -u)
 "
 
