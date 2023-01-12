@@ -23,14 +23,6 @@
         "redhat.vscode-yaml",
         "nsd.vscode-epics"
     ],
-    // automount fails inside a container so make sure any automounts that are
-    // needed get mounted before launching the container.
-    // NOTE: Add any personal / beamline specific automounts here
-    "initializeCommand": [
-        "bash",
-        "-c",
-        "for mount in /dls_sw/prod /dls_sw/work /dls_sw/epics /dls_sw/targetOS /dls_sw/apps /dls_sw/etc /dls_sw/optics /dls_sw/FPGA/ /dls/science /dls/detectors ; do ls -d ${mount} &> /dev/null ; done"
-    ],
     "mounts": [
         "source=/dls,target=/dls,type=bind,consistency=cached,bind-propagation=shared",
         "source=/dls_sw,target=/dls_sw,type=bind,consistency=cached,bind-propagation=shared",
