@@ -33,6 +33,8 @@ RUN yum update -y && \
     xfreerdp zenity \
     # useful tools
     sudo meld tk dejavu-sans-mono-fonts gnome-terminal xterm xmessage evince eog firefox java openldap-clients && \
+    # These packages are not found in the initial install so try again
+    yum install -y zeromq-devel git2u meld && \
     # clean up caches
     yum clean all && \
     # nasty hack to avoid overlay filesystem problems with --userns=keep-id
