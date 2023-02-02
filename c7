@@ -224,8 +224,8 @@ fi
 # using process 1 so users can exit the shell without killing the container
 if [[ -n ${commandargs} ]] ; then
     ${logging}
-    podman exec -itw $(pwd) ${container_name} ${command} "$*"
+    podman exec -itw $(pwd) ${container_name} env TERM=xterm-256color ${command} "$*"
 else
     ${logging}
-    podman exec -itw $(pwd) ${container_name} ${command}
+    podman exec -itw $(pwd) ${container_name} env TERM=xterm-256color ${command}
 fi
