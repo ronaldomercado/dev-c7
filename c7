@@ -124,7 +124,16 @@ use group permissions
     rhel=7
 fi
 
-environ="-e DISPLAY -e HOME -e USER -e SSH_AUTH_SOCK"
+environ="
+    -e CONTAINER_NAME=dev-c7
+    -e DEV_PROMPT=C7
+    -e DISPLAY
+    -e HOME
+    -e USER
+    -e SSH_AUTH_SOCK
+    -e TERM=xterm-256color
+"
+
 volumes="
     -v /scratch:/scratch
     -v /dls:/dls:shared

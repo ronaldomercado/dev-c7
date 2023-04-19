@@ -53,9 +53,11 @@ RUN yum reinstall -y glibc-common
 RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
 # latest git from the endpoint repo https://computingforgeeks.com/install-git-2-on-centos-7/
-RUN sudo yum remove -y git git-* && \
-    sudo yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm && \
-    sudo yum -y install git git-core
+RUN yum remove -y git git-* && \
+    # libcurl-devel for git-remote-https
+    yum -y install libcurl-devel && \
+    yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm && \
+    yum -y install git git-core
 
 # change the nobody account and group IDs to match RedHat
 RUN sed -i 's/99:99/65534:65534/' /etc/passwd && \
