@@ -57,3 +57,6 @@ RUN sudo yum remove -y git git-* && \
     sudo yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm && \
     sudo yum -y install git git-core
 
+# change the nobody account and group IDs to match RedHat
+RUN sed -i 's/99:99/65534:65534/' /etc/passwd && \
+    sed -i 's/:99:/:65534:/' /etc/group
