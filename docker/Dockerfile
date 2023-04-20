@@ -62,3 +62,6 @@ RUN yum remove -y git git-* && \
 # change the nobody account and group IDs to match RedHat
 RUN sed -i 's/99:99/65534:65534/' /etc/passwd && \
     sed -i 's/:99:/:65534:/' /etc/group
+
+# Remove the git ownership check because this matches the behaviour of RHEL7 git
+RUN git config --global --add safe.directory '*'
