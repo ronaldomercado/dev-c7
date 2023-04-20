@@ -220,13 +220,15 @@ elif [[ ${running} == "false" ]]; then
     version_tag=$(podman inspect --format='{{index .Labels "org.opencontainers.image.version"}}' ghcr.io/dls-controls/dev-c7:${version})
     echo "Creating new dev-c7 container version ${version_tag:- Unknown} ..."
     ${logging}
-    # Note hacks to get bash as default shell and to reinstall git
-    # (the git package is corupted by --userns keep-id)
+
+    # Restore bash as the default shell and
+    # Remove the git ownership check because this matches the behaviour of RHEL7 git
     podman run -dit --name ${container_name} ${runtime} ${environ}\
         ${identity} ${volumes} ${devices} ${opts} ${image}:${version} \
         bash -c "sudo sed -i s#/bin/sh#/bin/bash# /etc/passwd ;
-                sudo yum -y reinstall git-core ;
+                git config --global --add safe.directory '*' ;
                 bash"
+
 fi
 
 # Execute a shell in the container - this allows multiple shells and avoids
