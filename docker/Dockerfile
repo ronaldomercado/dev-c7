@@ -53,7 +53,7 @@ RUN yum reinstall -y glibc-common
 RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
 # latest git from the endpoint repo https://computingforgeeks.com/install-git-2-on-centos-7/
-RUN yum remove -y git git-* && \
+RUN yum remove -y git git-core && \
     # libcurl-devel for git-remote-https
     yum -y install libcurl-devel && \
     yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm && \
