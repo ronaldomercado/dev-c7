@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# A script for launching 'RHEL 7 in a Box' on a DLS workstation
+# A script for launching 'RHEL 6 in a Box' on a DLS workstation
 
 # NOTE that changes to this file should also be propgated to .devcontainer.json
 
-image=ghcr.io/dls-controls/dev-c7
+image=ghcr.io/ronaldomercado/dev-c6
 version=latest
 hostname=$(hostname)
 changed=false
@@ -64,9 +64,9 @@ while getopts "mglrdphs:i:v:cnI" arg; do
         ;;
     *)
         echo "
-usage: c7 [options]
+usage: c6 [options]
 
-Launches a developer container that simulates a DLS RHEL7 workstation.
+Launches a developer container that simulates a DLS RHEL6 workstation.
 
 Options:
 
@@ -90,15 +90,6 @@ done
 
 shift $((OPTIND-1))
 
-if [[ ${install_devcontainer_json} == true ]] ; then
-    mkdir -p .devcontainer
-    cd .devcontainer
-    wget -nv https://raw.githubusercontent.com/dls-controls/dev-c7/main/.devcontainer/devcontainer.json
-    echo
-    echo "Installed devcontainer.json. Try 'Reopen in Container' or 'Reload Window'."
-    exit 0
-fi
-
 if ! grep overlay ~/.config/containers/storage.conf &> /dev/null; then
     echo "ERROR: dev-c7 requires overlay filesystem."
     echo "Please see https://dls-controls.github.io/dev-c7/main/how-to/podman.html"
@@ -111,7 +102,7 @@ if [[ -e /etc/centos-release ]] ; then
 fi
 
 if ${delete} ; then
-    podman rm -ft0 dev-c7
+    podman rm -ft0 dev-c6
     changed=false
 fi
 
@@ -125,8 +116,8 @@ use group permissions
 fi
 
 environ="
-    -e CONTAINER_NAME=dev-c7
-    -e DEV_PROMPT=C7
+    -e CONTAINER_NAME=dev-c6
+    -e DEV_PROMPT=C6
     -e DISPLAY
     -e HOME
     -e USER
@@ -158,7 +149,7 @@ if which crun &> /dev/null ; then
     identity="${identity} --storage-opt ignore_chown_errors=true"
 fi
 
-container_name=dev-c7
+container_name=dev-c6
 
 # setup X11 to work even if you launched dev-c7 from an ssh shell
 # NOTE: this does not appear to be needed - I believe because the

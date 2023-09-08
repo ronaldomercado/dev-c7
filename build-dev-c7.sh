@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name=ghcr.io/dls-controls/dev-c7
+name=ghcr.io/ronaldomercado/dev-c6
 
 set -e
 podman build\
