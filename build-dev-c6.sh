@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name=ghcr.io/ronaldomercado/dev-c6
+name=local-rm-c6
 
 set -e
 podman build\

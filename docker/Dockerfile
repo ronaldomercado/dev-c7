@@ -12,9 +12,13 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
 
+COPY /CentOS-Base.repo /etc/yum.repos/d/CentOS-Base.repo
+
+RUN yum update -y && \
+   yum install sudo environment-modules
+   
 # full sudo rights inside the container
 COPY /sudoers /etc/sudoers
-
 # set container time to BST
 RUN ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
