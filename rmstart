@@ -1,0 +1,36 @@
+# script to start a shell on
+image="localhost/local-rm-c6"
+user_id=$(id -u)
+hostname=$(hostname)
+
+runtime="--runtime /usr/bin/crun"
+environ=""
+environ="${environ} -e CONTAINER_NAME=dev-c6"
+environ="${environ} -e DEV_PROMPT=C6"
+environ="${environ} -e DISPLAY"
+environ="${environ} -e HOME"
+environ="${environ} -e USER"
+environ="${environ} -e SSH_AUTH_SOCK"
+environ="${environ} -e TERM=xterm-256color"
+userns="--userns=keep-id"
+identity="${userns} --annotation run.oci.keep_original_groups=1"
+identity="${identity} --storage-opt ignore_chown_errors=true"
+volumes=""
+volumes="${volumes} -v /scratch:/scratch"
+volumes="${volumes} -v /dls:/dls:shared"
+volumes="${volumes} -v /dls_sw:/dls_sw:shared
+volumes="${volumes} -v /home:/home:shared
+volumes="${volumes} -v /run/user/${user_id}:/run/user/${user_id}"
+volumes="${volumes} -v /tmp:/tmp"
+devices="-v /dev/ttyS0:/dev/ttyS0"
+network="--net=host"
+opts="${network} --hostname ${hostname}"
+opts="${opts} --security-opt=label=type:container_runtime_t"
+version="latest"
+podman run -it ${runtime} \
+        ${environ}\
+        ${identity} \
+        ${volumes} \
+        ${devices} \
+        ${opts} \
+        ${image}:${version}
