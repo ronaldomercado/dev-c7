@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quick Start &mdash; dev-c7 2.0.0-2-g96fd87d
+  <title>Quick Start &mdash; dev-c7 2.0.0-112-g9f5b22b
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -15,11 +15,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=18bb62c8"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,16 +32,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(7, 43, 93)" >
-            <a href="../index.html" class="icon icon-home"> dev-c7
-            <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dev-c7
+              <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-2-g96fd87d
-
+                main
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,8 +54,9 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#startup-script-run-dev-c7-sh">Startup Script run-dev-c7.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#startup-script-c7">Startup Script “c7”</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-work">How to Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-edm-fonts">Install edm fonts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="continue.html">More Features</a></li>
@@ -92,8 +96,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Quick Start</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/tutorials/start.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -104,50 +108,49 @@
            <div itemprop="articleBody">
              
   <section id="quick-start">
-<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading"></a></h1>
+<span id="start"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <p>First, if you have never used containers at DLS before, then you must
 do an initial podman setup:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">dls_sw</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">setup</span><span class="o">-</span><span class="n">podman</span><span class="o">/</span><span class="n">setup</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If you have previously used podman you may need to perform a migration.
 See <a class="reference internal" href="../how-to/podman.html"><span class="doc">Updating Podman Settings</span></a></p>
 </div>
-<p>Second, in order to support secondary groups we require the crun container
-runtime. This should be installed by default but early adopters
-will need:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">crun</span>
-</pre></div>
-</div>
 </section>
-<section id="startup-script-run-dev-c7-sh">
-<h2>Startup Script run-dev-c7.sh<a class="headerlink" href="#startup-script-run-dev-c7-sh" title="Permalink to this heading"></a></h2>
+<section id="startup-script-c7">
+<h2>Startup Script “c7”<a class="headerlink" href="#startup-script-c7" title="Link to this heading"></a></h2>
 <p>Next, copy the startup script to your local bin directory and make it
-executable:</p>
+executable.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/bin
-wget -nc https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
-chmod run-dev-c7.sh
+curl -O https://raw.githubusercontent.com/dls-controls/dev-c7/main/c7
+chmod +x c7
 </pre></div>
 </div>
-<p>The above gets version 2.0.0 which is current as of 01/07/2022.
-See <a class="reference external" href="https://github.com/dls-controls/dev-c7/releases">https://github.com/dls-controls/dev-c7/releases</a> for the latest updates.</p>
 <p>Finally, launch an instance of the container by typing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c7</span>
 </pre></div>
+</div>
+<p>That’s it. For further options see <a class="reference internal" href="continue.html"><span class="doc">More Features</span></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>if don’t have a $HOME/bin folder then you will need to do
+<code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">$HOME/bin</span></code>. It will automatically be added to your PATH in
+any new shells, but the current shell won’t see it.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For the first invocation of an updated version of the container there
 will be a 30 second delay while the filesystem user id namespace mapping
-is cached.</p>
+is cached. This will happen after the image is pulled from the registry.</p>
 </div>
 </section>
 <section id="how-to-work">
-<h2>How to Work<a class="headerlink" href="#how-to-work" title="Permalink to this heading"></a></h2>
+<h2>How to Work<a class="headerlink" href="#how-to-work" title="Link to this heading"></a></h2>
 <p>At a dev-c7 prompt you can work normally as if you were sitting at a RHEL7
 workstation. Everything should work as before although there are a few
 differences, see
@@ -169,6 +172,18 @@ container with <code class="docutils literal notranslate"><span class="pre">yum<
 feel free to launch dev-c7 inside of its integrated terminals to do
 compilation, testing.</p></li>
 </ul>
+</section>
+<section id="install-edm-fonts">
+<h2>Install edm fonts<a class="headerlink" href="#install-edm-fonts" title="Link to this heading"></a></h2>
+<p>If you are using edm and the fonts look wrong or you get errors about
+missing fonts, then read on. This should not be required for RHEL8 machines
+at DLS which should already have the fonts installed.</p>
+<p>The edm display manager uses local fonts that need to be installed on your host.</p>
+<p>Again, these should be part of the standard RHEL8 installation but early
+adopters may need to install them as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dls</span><span class="o">-</span><span class="n">controls</span><span class="o">/</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">edm</span><span class="o">-</span><span class="n">fonts</span><span class="o">/</span><span class="n">install</span><span class="o">-</span><span class="n">fonts</span><span class="o">.</span><span class="n">sh</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -202,8 +217,7 @@ compilation, testing.</p></li>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-2-g96fd87d
-
+      main
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">

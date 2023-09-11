@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>More Features &mdash; dev-c7 2.0.0-2-g96fd87d
+  <title>More Features &mdash; dev-c7 2.0.0-112-g9f5b22b
  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -15,11 +15,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=18bb62c8"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,16 +32,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: rgb(7, 43, 93)" >
-            <a href="../index.html" class="icon icon-home"> dev-c7
-            <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dev-c7
+              <img src="../_static/dls-logo.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                2.0.0-2-g96fd87d
-
+                main
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -55,7 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#versions">Versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lifetime">Lifetime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deleting-the-container">Deleting the container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#upgrade-to-a-new-dev-c7-version">Upgrade to a new dev-c7 version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrade-to-a-new-c7-launcher-version">Upgrade to a new c7 launcher version</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="vscode.html">VSCode Integration</a></li>
@@ -94,8 +97,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>More Features</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">More Features</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/tutorials/continue.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -106,36 +109,48 @@
            <div itemprop="articleBody">
              
   <section id="more-features">
-<h1>More Features<a class="headerlink" href="#more-features" title="Permalink to this heading"></a></h1>
+<h1>More Features<a class="headerlink" href="#more-features" title="Link to this heading"></a></h1>
 <p>This tutorial takes you through a few additional features provided by the
 launch script.</p>
 <section id="options">
-<h2>Options<a class="headerlink" href="#options" title="Permalink to this heading"></a></h2>
+<h2>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h2>
 <p>To see optional parameters, run the launch script with -h:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ run-dev-c7.sh -h
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$  c7 -h
 
-usage: run-dev-c7.sh [options]
+usage: c7 [options]
 
 Launches a developer container that simulates a DLS RHEL7 workstation.
 
 Options:
 
     -h              show this help
+    -l              Enable logging
     -p              pull an updated version of the image first
     -i image        specify the container image (default: ghcr.io/dls-controls/dev-c7)
     -v version      specify the image version (default: latest)
     -s host         set a hostname for your container (default: pc0116.cs.diamond.ac.uk)
     -d              delete previous container and start afresh
+    -n              run in podman virtual network instead of the host network
+    -c command      run a command in the container (must be last option)
+    -I              Install .devcontainer/devcontainer.json in the current directory for vscode
+    -g              enable X11 GUI for containers launched via ssh (only required with -r)
+    -r              run as root
 </pre></div>
 </div>
 </section>
 <section id="versions">
-<h2>Versions<a class="headerlink" href="#versions" title="Permalink to this heading"></a></h2>
-<p>The default behaviour is that <code class="docutils literal notranslate"><span class="pre">run-dev-c7.sh</span></code> will use the version matching
-the version of the script you downloaded.</p>
-<p>If you would like to roll back to a previous version or try a newer version
+<h2>Versions<a class="headerlink" href="#versions" title="Link to this heading"></a></h2>
+<p>The default behaviour is that <code class="docutils literal notranslate"><span class="pre">c7</span></code> will use the latest container version in the
+registry on first invocation. When it launches and attaches to the
+container it will report the version you are currently using.</p>
+<p><code class="docutils literal notranslate"><span class="pre">c7</span></code> will not pick up new releases of the
+container image unless you explicitly ask it to pull the latest again:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c7</span> <span class="o">-</span><span class="n">dp</span>
+</pre></div>
+</div>
+<p>If you would like to roll back to a previous version
 of the container then use the -v option:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">c7</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">v</span> <span class="mf">2.0.0</span><span class="o">-</span><span class="n">rc1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c7</span> <span class="o">-</span><span class="n">dv</span> <span class="mf">2.2.0</span>
 </pre></div>
 </div>
 <p>To check what versions of the image are available, take a look at the
@@ -143,7 +158,7 @@ github container registry for this project
 <a class="reference external" href="https://ghcr.io/dls-controls/dev-c7">https://ghcr.io/dls-controls/dev-c7</a></p>
 </section>
 <section id="lifetime">
-<h2>Lifetime<a class="headerlink" href="#lifetime" title="Permalink to this heading"></a></h2>
+<h2>Lifetime<a class="headerlink" href="#lifetime" title="Link to this heading"></a></h2>
 <p>Note that the container should be considered ephemeral. The system partition
 can be changed and you have full sudo rights, but note:</p>
 <ul class="simple">
@@ -157,7 +172,7 @@ to implement, see <a class="reference internal" href="../how-to/deriving.html#de
 </ul>
 </section>
 <section id="deleting-the-container">
-<span id="deleting"></span><h2>Deleting the container<a class="headerlink" href="#deleting-the-container" title="Permalink to this heading"></a></h2>
+<span id="deleting"></span><h2>Deleting the container<a class="headerlink" href="#deleting-the-container" title="Link to this heading"></a></h2>
 <p>To reset the container back to its original state we ask podman
 to stop it and delete it.</p>
 <div class="admonition warning">
@@ -174,7 +189,7 @@ dev-c7 shells and any GUI apps launched from them will be closed:</p>
 <p>When you next launch the container, it will be started with its file system
 initialized back to the default state specified in the image at
 ghcr.io/dls-controls/dev-c7:latest.</p>
-<p>You can also ask <code class="docutils literal notranslate"><span class="pre">run-dev-c7.sh</span></code> to perform the delete for you with <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p>
+<p>You can also ask <code class="docutils literal notranslate"><span class="pre">c7</span></code> to perform the delete for you with <code class="docutils literal notranslate"><span class="pre">-d</span></code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Any changes you have made to the container itself will be lost when you
@@ -184,15 +199,15 @@ See <a class="reference internal" href="../explanations/how_it_works.html"><span
 persist changes see <a class="reference internal" href="../how-to/deriving.html#deriving"><span class="std std-ref">Derive your own container image</span></a>.</p>
 </div>
 </section>
-<section id="upgrade-to-a-new-dev-c7-version">
-<h2>Upgrade to a new dev-c7 version<a class="headerlink" href="#upgrade-to-a-new-dev-c7-version" title="Permalink to this heading"></a></h2>
-<p>It best to update the script and the container image together as follows:</p>
+<section id="upgrade-to-a-new-c7-launcher-version">
+<h2>Upgrade to a new c7 launcher version<a class="headerlink" href="#upgrade-to-a-new-c7-launcher-version" title="Link to this heading"></a></h2>
+<p>If the script has acquired new features you may want to update as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/bin
-rm run-dev-c7.sh
-wget -nc https://github.com/dls-controls/dev-c7/releases/download/2.0.0/run-dev-c7.sh
-chmod run-dev-c7.sh
+rm c7
+wget -nc https://raw.githubusercontent.com/dls-controls/dev-c7/main/c7
+chmod +x c7
 
-run-dev-c7.sh -d # -d deletes previous container to start afresh
+c7 -d # -d deletes previous container to start afresh
 </pre></div>
 </div>
 <p>Also update your devcontainer.json to match for projects you want to also
@@ -230,8 +245,7 @@ upgrade.</p>
   <div id="other-versions-div" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions" style="visibility: hidden">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Other Versions</span>
-      2.0.0-2-g96fd87d
-
+      main
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
